@@ -1,9 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:retail/presentation/auth/login.dart';
-import 'package:retail/presentation/auth/register.dart';
+import 'package:provider/provider.dart';
+import 'package:retail/core/configs/theme/app_theme.dart';
+import 'package:retail/core/network/storage_utils.dart';
+import 'package:retail/presentation/auth/notifier/signin_notifier.dart';
+import 'package:retail/presentation/auth/signin.dart';
 
-void main() {
-  runApp(Main());
+void main() async {
+  await StorageUtils.getInstance();
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => SignInNotifier()),
+      ],
+      child: Main(),
+    ),
+  );
 }
 
 class Main extends StatelessWidget {
@@ -13,10 +25,8 @@ class Main extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        
-        body: LoginPage(),
-      ),
+      theme: AppTheme.appTheme,
+      home: SignInPage(),
     );
   }
 }
