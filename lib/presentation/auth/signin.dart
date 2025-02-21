@@ -70,7 +70,7 @@ class SignInPage extends StatelessWidget {
           'Forgot Password',
           textAlign: TextAlign.end,
           style: TextStyle(
-              color: Colors.blue, decoration: TextDecoration.underline),
+            color: Colors.blue, decoration: TextDecoration.underline),
         ),
       ),
     );
@@ -86,7 +86,14 @@ class SignInPage extends StatelessWidget {
           color: AppColors.buttonBackground,
         ),
         child: Center(
-          child: Text("Login"),
+          child: Text(
+            "Login", 
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 17,
+              fontWeight: FontWeight.bold
+            ),
+          ),
         ),
       ),
     );

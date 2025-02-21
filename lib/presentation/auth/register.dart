@@ -1,126 +1,119 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:retail/core/configs/theme/app_colors.dart';
+import 'package:retail/presentation/auth/notifier/register_notifier.dart';
 
-class RegisterPage extends StatefulWidget {
+class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
 
-  @override
-  State<RegisterPage> createState() {
-    return RegisterPageState();
-  }
-}
-
-class RegisterPageState extends State<RegisterPage> {
-
-  final _formKey = GlobalKey<FormState>();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _fullName = TextEditingController();
-  final TextEditingController _phone = TextEditingController();
-  final TextEditingController _address = TextEditingController();
-
-  void _login() {
-    if (_formKey.currentState!.validate()) {
-      String email = _emailController.text.trim();
-      String password = _passwordController.text.trim();
-
-      // Perform login logic
-      print("Register in with Email: $email, Password: $password");
-    }
-  }
+   
 
   @override
   Widget build(BuildContext context) {
+    final RegisterNotifier readNotifier = context.read<RegisterNotifier>();
+    final RegisterNotifier watchNotifier = context.watch<RegisterNotifier>();
     return Scaffold(
-      
-      body: Padding(
-        
-
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            
-            children: [
-              // Image.asset(''),
-              TextFormField(
-                controller: _fullName,
-                decoration: InputDecoration(
-                  labelText: 'Full Name',
-                  border: OutlineInputBorder()
-                ),
-                validator: (value) {
-                  if(value == null || value.isEmpty) {
-                    return 'Please Enter your fullname';
-                  }
-                  return null;
-                },
-                keyboardType: TextInputType.name,
-              ),
-              SizedBox(height: 16),
-              TextFormField(
-                controller: _emailController,
-                decoration: InputDecoration(
-                  labelText: 'Email',
-                  border: OutlineInputBorder(),
-                ),
-                keyboardType: TextInputType.emailAddress,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your email';
-                  }
-                  if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
-                    return 'Enter a valid email';
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(height: 16),
-              TextFormField(
-                controller: _passwordController,
-                decoration: InputDecoration(
-                  labelText: 'Password',
-                  border: OutlineInputBorder(),
-                ),
-                obscureText: true,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your password';
-                  }
-                  if (value.length < 6) {
-                    return 'Password must be at least 6 characters';
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(height: 16),
-              TextFormField(
-                controller: _phone,
-                decoration: InputDecoration(
-                  labelText: 'Phone',
-                  border: OutlineInputBorder(),
-                ),
-                keyboardType: TextInputType.number,
-              ),
-              SizedBox(height: 16),
-              TextFormField(
-                controller: _address,
-                decoration: InputDecoration(
-                  labelText: 'Address',
-                  border: OutlineInputBorder(),
-                ),
-                keyboardType: TextInputType.streetAddress,
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: _login,
-                child: Text('Register'),
-              ),
-            ],
+      body: Center(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.only(left: 16, right: 16),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                fullNameTextField(readNotifier),
+                _spacer(),
+                emailTextField(readNotifier),
+                _spacer(),
+                passwordField(readNotifier, watchNotifier),
+                _spacer(),
+                phoneTextField(readNotifier),
+                _spacer(),
+                addressTextField(readNotifier),
+                _spacer(),
+                register()
+              ],
+            ),
           ),
+
         ),
       ),
+    );
+  }
+
+  Widget fullNameTextField(RegisterNotifier readNotifier) {
+    return TextFormField(
+      controller: readNotifier.fullNameCtr,
+      decoration: InputDecoration(labelText: 'Full Name'),
+      keyboardType: TextInputType.name,
+    );
+  }
+
+  
+  Widget emailTextField(RegisterNotifier readNotifier) {
+    return TextFormField(
+      controller: readNotifier.emailCtr,
+      decoration: InputDecoration(
+        labelText: 'Email',
+      ),
+      keyboardType: TextInputType.emailAddress,
+    );
+  }
+
+  Widget passwordField(
+      RegisterNotifier readNotifier, RegisterNotifier watchNotifier) {
+    return TextFormField(
+      controller: readNotifier.passwordCtr,
+      decoration: InputDecoration(
+          labelText: 'Password',
+          suffix: GestureDetector(
+              onTap: () => watchNotifier.changeVisibility(),
+              child: Icon(
+                watchNotifier.isVisibility
+                    ? Icons.visibility
+                    : Icons.visibility_off,
+                color: AppColors.primary,
+              ))),
+      obscureText: readNotifier.isVisibility,
+      keyboardType: TextInputType.number,
+    );
+  }
+
+  Widget phoneTextField(RegisterNotifier readNotifier) {
+    return TextFormField(
+      controller: readNotifier.phoneCtr,
+      decoration: InputDecoration(labelText: 'Phone'),
+      keyboardType: TextInputType.number,
+    );
+  }
+
+
+  Widget addressTextField(RegisterNotifier readNotifier) {
+    return TextFormField(
+      controller: readNotifier.addressCtr,
+      decoration: InputDecoration(labelText: 'Address'),
+      keyboardType: TextInputType.streetAddress,
+    );
+  }
+
+  Widget register() {
+    return GestureDetector(
+      onTap: () {},
+      child: Container(
+        height: 40,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: AppColors.buttonBackground),
+        child: Center(
+          child: Text('Register'),
+        ),
+      ),
+    );
+  }
+
+  
+  Widget _spacer() {
+    return SizedBox(
+      height: 15,
     );
   }
 }

@@ -2,16 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:retail/core/configs/theme/app_theme.dart';
 import 'package:retail/core/network/storage_utils.dart';
+import 'package:retail/presentation/auth/notifier/register_notifier.dart';
 import 'package:retail/presentation/auth/notifier/signin_notifier.dart';
+import 'package:retail/presentation/auth/register.dart';
 import 'package:retail/presentation/auth/signin.dart';
 
 void main() async {
-  await StorageUtils.getInstance();
   WidgetsFlutterBinding.ensureInitialized();
+  await StorageUtils.getInstance();
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => SignInNotifier()),
+        ChangeNotifierProvider(create: (context) => RegisterNotifier())
       ],
       child: Main(),
     ),
