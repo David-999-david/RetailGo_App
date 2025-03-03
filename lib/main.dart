@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:retail/core/configs/theme/app_theme.dart';
 import 'package:retail/core/network/storage_utils.dart';
-import 'package:retail/presentation/auth/notifier/register_notifier.dart';
-import 'package:retail/presentation/auth/notifier/signin_notifier.dart';
-import 'package:retail/presentation/auth/register.dart';
-import 'package:retail/presentation/auth/signin.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,8 +9,7 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => SignInNotifier()),
-        ChangeNotifierProvider(create: (context) => RegisterNotifier())
+        // ChangeNotifierProvider(create: (context) => SignInNotifier()),
       ],
       child: Main(),
     ),
@@ -29,7 +24,7 @@ class Main extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: AppTheme.appTheme,
-      home: SignInPage(),
+      // home: SignInPage(),
     );
   }
 }
