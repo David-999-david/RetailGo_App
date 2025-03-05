@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:retail/core/configs/theme/app_theme.dart';
 import 'package:retail/core/network/storage_utils.dart';
+import 'package:retail/presentation/home/home.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await StorageUtils.getInstance();
   runApp(
-    MultiProvider(
-      providers: [
-        // ChangeNotifierProvider(create: (context) => SignInNotifier()),
-      ],
-      child: Main(),
-    ),
+    Main(),
   );
 }
 
@@ -24,7 +19,7 @@ class Main extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: AppTheme.appTheme,
-      // home: SignInPage(),
+      home: HomePage(),
     );
   }
 }
