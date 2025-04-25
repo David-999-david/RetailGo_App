@@ -9,189 +9,6 @@ import 'package:retail/presentation/filter/widget/subcategory_filter.dart';
 import 'package:retail/presentation/home/home_screen.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 
-// class FilterContainer extends StatelessWidget {
-//   const FilterContainer({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return ChangeNotifierProvider(
-//       create: (context) => FilterCategoryNotifier()
-//         ..getAllCategory()
-//         ..getAllProduct(),
-//       child:
-//           Consumer<FilterCategoryNotifier>(builder: (context, provider, child) {
-//         return SingleChildScrollView(
-//           child: Container(
-//             height: 460,
-//             padding: EdgeInsets.all(25),
-//             width: double.infinity,
-//             decoration: BoxDecoration(
-//                 color: Colors.grey[100],
-//                 borderRadius: BorderRadius.circular(10)),
-//             child: Column(
-//               mainAxisAlignment: MainAxisAlignment.start,
-//               crossAxisAlignment: CrossAxisAlignment.center,
-//               children: [
-//                 Text(
-//                   'Filtter',
-//                   textAlign: TextAlign.center,
-//                   style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
-//                 ),
-//                 SizedBox(
-//                   height: 10,
-//                 ),
-//                 DropdownButtonFormField(
-//                     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-//                     menuMaxHeight: 180,
-//                     value: provider.selectCategorytValue,
-//                     hint: Text('Select Category'),
-//                     decoration: InputDecoration(
-//                         border: OutlineInputBorder(
-//                           borderRadius: BorderRadius.circular(15),
-//                         ),
-//                         filled: true,
-//                         fillColor: Colors.grey[2000]),
-//                     items: provider.categoryList.map((item) {
-//                       return DropdownMenuItem(
-//                           value: item.category, child: Text(item.category));
-//                     }).toList(),
-//                     onChanged: (value) {
-//                       provider.onSelectCategoryValue(value);
-//                       provider.getSubCategoryList(value!);
-//                     }),
-//                 SizedBox(
-//                   height: 5,
-//                 ),
-//                 SizedBox(
-//                   height: 28,
-//                   child: ListView.separated(
-//                       scrollDirection: Axis.horizontal,
-//                       itemBuilder: (context, index) {
-//                         return SelectedFilterList(
-//                           selectedValue: provider.selectSubCategories[index],
-//                         );
-//                       },
-//                       separatorBuilder: (context, index) {
-//                         return SizedBox(
-//                           width: 10,
-//                         );
-//                       },
-//                       itemCount: provider.selectSubCategories.length),
-//                 ),
-//                 SizedBox(
-//                   height: 5,
-//                 ),
-//                 DropdownButtonFormField(
-//                     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-//                     menuMaxHeight: 200,
-//                     value: null,
-//                     hint: Text('SUB-Categories'),
-//                     decoration: InputDecoration(
-//                         border: OutlineInputBorder(
-//                             borderRadius: BorderRadius.circular(15)),
-//                         filled: true,
-//                         fillColor: Colors.grey[2000]),
-//                     items: provider.subCategoryList.map((item) {
-//                       return DropdownMenuItem(
-//                           value: item,
-//                           child: StatefulBuilder(builder: (context, setState) {
-//                             return InkWell(
-//                               onTap: () {
-//                                 provider.onselectSubCategories(item);
-//                                 setState(() {});
-//                               },
-//                               child: Row(
-//                                 children: [
-//                                   Checkbox(
-//                                       checkColor: Colors.white,
-//                                       value: provider.selectSubCategories
-//                                           .contains(item),
-//                                       onChanged: (value) {
-//                                         provider.onselectSubCategories(item);
-//                                         setState(() {});
-//                                       }),
-//                                   Text(item)
-//                                 ],
-//                               ),
-//                             );
-//                           }));
-//                     }).toList(),
-//                     onChanged: (_) {}),
-//                 SizedBox(
-//                   height: 35,
-//                 ),
-//                 DropdownButtonFormField(
-//                     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-//                     menuMaxHeight: 180,
-//                     value: provider.selectBrand,
-//                     hint: Text('Select Brand'),
-//                     decoration: InputDecoration(
-//                         border: OutlineInputBorder(
-//                             borderRadius: BorderRadius.circular(15)),
-//                         filled: true,
-//                         fillColor: Colors.grey[2000]),
-//                     items: provider.brandList.map((brand) {
-//                       return DropdownMenuItem(
-//                           value: brand,
-//                           child:
-//                               // Row(
-//                               //   children: [
-//                               //     Radio(
-//                               //         activeColor: Colors.green,
-//                               //         value: brand,
-//                               //         groupValue: provider.selectBrand,
-//                               //         onChanged: (newValue) {
-//                               //           provider.onSelectBrand(newValue!);
-//                               //           AppNavigator.pop(context);
-//                               //         }),
-//                               Text(brand)
-//                           //   ],
-//                           // )
-//                           );
-//                     }).toList(),
-//                     onChanged: (newValue) {
-//                       provider.onSelectBrand(newValue);
-//                     }),
-//                 Spacer(),
-//                 Row(
-//                   mainAxisAlignment: MainAxisAlignment.spaceAround,
-//                   crossAxisAlignment: CrossAxisAlignment.center,
-//                   mainAxisSize: MainAxisSize.max,
-//                   children: [
-//                     ElevatedButton(
-//                         onPressed: () {
-//                           provider.clearAllFilter();
-//                         },
-//                         style: ElevatedButton.styleFrom(
-//                             backgroundColor: Colors.grey.shade200,
-//                             foregroundColor: Colors.black),
-//                         child: Text('Clear Filter')),
-//                     ElevatedButton(
-//                         onPressed: () {
-//                           List<String> allFilterList =
-//                               provider.getAllFilterList();
-
-//                           AppNavigator.push(
-//                               context,
-//                               HomeScreen(
-//                                 allFilterList: allFilterList,
-//                               ));
-//                         },
-//                         style: ElevatedButton.styleFrom(
-//                             backgroundColor: Colors.blue.withOpacity(0.4),
-//                             foregroundColor: Colors.black),
-//                         child: Text('Apply Filter')),
-//                   ],
-//                 )
-//               ],
-//             ),
-//           ),
-//         );
-//       }),
-//     );
-//   }
-// }
-
 class FilterContainer extends StatelessWidget {
   const FilterContainer({super.key});
 
@@ -267,8 +84,7 @@ Widget _categoryDropDown(
           decoration: InputDecoration(
               labelText: 'Search...',
               border: InputBorder.none,
-              constraints: BoxConstraints
-              (maxHeight: MediaQuery.of(context).size.height * 0.3),
+              constraints: BoxConstraints(maxHeight: 100),
               contentPadding:
                   EdgeInsets.symmetric(horizontal: 12, vertical: 6)),
         ),
@@ -291,7 +107,108 @@ Widget _subCategoryDropDown(
     BuildContext context, FilterCategoryNotifier provider) {
   return Container(
     padding: EdgeInsets.all(10),
-    child: DropdownSearch.multiSelection(),
+    child: DropdownSearch<String>.multiSelection(
+      key: ValueKey(provider.selectCategorytValue),
+      enabled: provider.selectCategorytValue != null,
+      decoratorProps: DropDownDecoratorProps(
+          decoration: InputDecoration(
+              labelText: 'Sub-Category',
+              hintText: 'Select a Sub-Category',
+              border: OutlineInputBorder(),
+              contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              prefixIcon: Icon(Icons.category))),
+      popupProps: PopupPropsMultiSelection.menu(
+        showSearchBox: false,
+        showSelectedItems: false,
+        searchFieldProps: TextFieldProps(
+            decoration: InputDecoration(
+          labelText: 'Search...',
+          border: InputBorder.none,
+          contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+          constraints: BoxConstraints(maxHeight: 200),
+        )),
+        containerBuilder: (context, popupWidget) {
+          return Material(
+            color: Colors.white,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TextButton(
+                    style: TextButton.styleFrom(
+                        padding: EdgeInsets.only(left: 8, top: 10),
+                        minimumSize: Size(0, 0)),
+                    onPressed: () {
+                      final allSub =
+                          List<String>.from(provider.subCategoryList);
+                      provider.updateSelectedSubCategories(allSub);
+                      AppNavigator.pop(context);
+                    },
+                    child: Text(
+                      'All',
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: const Color.fromARGB(255, 22, 21, 21)),
+                    )),
+                Divider(),
+                Expanded(child: popupWidget)
+              ],
+            ),
+          );
+        },
+        // onItemAdded: (selectedItems, addedItem) {
+        //   final updated = [...selectedItems,addedItem];
+        //   provider.updateSelectedSubCategories(updated);
+        // },
+        // onItemRemoved: (selectedItems, removedItem) {
+        //   final updated = [...selectedItems,removedItem];
+        //   provider.updateSelectedSubCategories(updated);
+        // },
+        checkBoxBuilder: (context, item, isDisabled, isSelected) =>
+            SizedBox.shrink(),
+        itemBuilder: (context, item, isDisabled, isSelected) {
+          return InkWell(
+            onTap: () {
+              final currentList = List<String>.from(provider.selectSubCategories);
+              if (isSelected){
+                currentList.remove(item);
+              } 
+              else {
+                currentList.add(item);
+              }
+              provider.updateSelectedSubCategories(currentList);
+            },
+            child: Row(
+            children: [
+              Checkbox(
+                value: isSelected,
+                onChanged: (checked) {
+                  final selectedSubList =
+                      List<String>.from(provider.selectSubCategories);
+                  if (checked == true) {
+                    selectedSubList.add(item);
+                  } else {
+                    selectedSubList.remove(item);
+                  }
+                  provider.updateSelectedSubCategories(selectedSubList);
+                },
+              ),
+              Text(item)
+            ],
+          ),
+          );
+        },
+      ),
+      // dropdownBuilder: (context, selectedItems) {
+      //   return
+      // },
+      items: (filter, loadProps) {
+        return provider.subCategoryList;
+      },
+      selectedItems: provider.selectSubCategories,
+      onChanged: (List<String> values) {
+        provider.updateSelectedSubCategories(values);
+      },
+    ),
   );
 }
 

@@ -127,7 +127,10 @@ class FilterCategoryNotifier extends ChangeNotifier {
     // if (newValue != null) {
     //   getSubCategoryList(newValue);
     // }
-    print(newValue);
+    if (_selectSubCategories.isNotEmpty){
+      _selectSubCategories = [];
+    }
+    print('Category : $newValue' );
     notifyListeners();
   }
 
@@ -140,18 +143,26 @@ class FilterCategoryNotifier extends ChangeNotifier {
     _subCategoryList =
         selectedCategory.subcategory.map((sub) => sub.subName).toList();
     _selectSubCategories.clear();
-    print(_subCategoryList);
+    print('Sub-Categories : $_subCategoryList');
     notifyListeners();
   }
 
-  void onselectSubCategories(String newvalue) {
-    if (_selectSubCategories.contains(newvalue)) {
-      _selectSubCategories.remove(newvalue);
-    } else {
-      _selectSubCategories.add(newvalue);
-    }
+  // void onselectSubCategories(String? newvalue) {
+  //   if (_selectSubCategories.contains(newvalue)) {
+  //     _selectSubCategories.remove(newvalue);
+  //   } else {
+  //     _selectSubCategories.add(newvalue!);
+  //   }
+  //   getFilterBrandList();
+  //   print(newvalue);
+  //   notifyListeners();
+  // }
+
+  void updateSelectedSubCategories(List<String> values){
+    _selectSubCategories = List.from(values);
+    print(_selectSubCategories);
     getFilterBrandList();
-    print(newvalue);
+    print(_brandList);
     notifyListeners();
   }
 
