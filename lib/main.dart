@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:retail/core/configs/theme/app_theme.dart';
 import 'package:retail/core/network/storage_utils.dart';
-import 'package:retail/presentation/home/home.dart';
+import 'package:retail/presentation/filter/notifier/filter_category_notifier.dart';
+import 'package:retail/presentation/home/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await StorageUtils.getInstance();
-  runApp(
-    Main(),
-  );
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (_) => FilterCategoryNotifier())
+    ],
+    child: Main(),
+  ));
 }
 
 class Main extends StatelessWidget {
@@ -19,7 +24,9 @@ class Main extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: AppTheme.appTheme,
-      home: HomePage(),
+      home: HomeScreen(
+        allFilterList: [],
+      ),
     );
   }
 }
