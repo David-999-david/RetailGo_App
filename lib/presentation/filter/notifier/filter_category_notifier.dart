@@ -131,7 +131,7 @@ class FilterCategoryNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  void getSubCategoryList(String category) {
+  void getSubCategoryList(String? category) {
     var selectedCategory = _categoryList.firstWhere(
       (item) => item.category == category,
       orElse: () =>
@@ -140,6 +140,7 @@ class FilterCategoryNotifier extends ChangeNotifier {
     _subCategoryList =
         selectedCategory.subcategory.map((sub) => sub.subName).toList();
     _selectSubCategories.clear();
+    print(_subCategoryList);
     notifyListeners();
   }
 

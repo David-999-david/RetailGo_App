@@ -254,12 +254,35 @@ Widget _categoryDropDown(
   return Container(
     padding: EdgeInsets.all(10),
     child: DropdownSearch<String>(
+      decoratorProps: DropDownDecoratorProps(
+          decoration: InputDecoration(
+              labelText: 'Category',
+              hintText: 'Select a Category',
+              border: OutlineInputBorder(),
+              contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              prefixIcon: Icon(Icons.category))),
       popupProps: PopupProps.menu(
         showSearchBox: true,
         searchFieldProps: TextFieldProps(
-          decoration: InputDecoration(hintText: 'Category'),
+          decoration: InputDecoration(
+              labelText: 'Search...',
+              border: InputBorder.none,
+              constraints: BoxConstraints
+              (maxHeight: MediaQuery.of(context).size.height * 0.3),
+              contentPadding:
+                  EdgeInsets.symmetric(horizontal: 12, vertical: 6)),
         ),
       ),
+      items: (filter, loadProps) {
+        return provider.categoryList
+            .map((item) => item.category.toString())
+            .toList();
+      },
+      onChanged: (value) {
+        provider.onSelectCategoryValue(value);
+        provider.getSubCategoryList(value);
+      },
+      selectedItem: provider.selectCategorytValue,
     ),
   );
 }
@@ -267,7 +290,8 @@ Widget _categoryDropDown(
 Widget _subCategoryDropDown(
     BuildContext context, FilterCategoryNotifier provider) {
   return Container(
-    child: Text('S'),
+    padding: EdgeInsets.all(10),
+    child: DropdownSearch.multiSelection(),
   );
 }
 
