@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:retail/common/helper/app_navigation.dart';
-import 'package:retail/presentation/category/notifier/category_notifier.dart';
 import 'package:retail/presentation/filter/notifier/filter_category_notifier.dart';
-import 'package:retail/presentation/filter/widget/category_filter.dart';
-import 'package:retail/presentation/filter/widget/selected_filter_list.dart';
-import 'package:retail/presentation/filter/widget/subcategory_filter.dart';
-import 'package:retail/presentation/home/home_screen.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 
 class FilterContainer extends StatelessWidget {
@@ -22,41 +17,44 @@ class FilterContainer extends StatelessWidget {
         builder: (context, provider, child) {
           return Container(
             padding: EdgeInsets.all(20),
-            height: 500,
+            height: MediaQuery.of(context).size.height * 0.45,
             width: double.infinity,
             decoration: BoxDecoration(
                 color: Colors.grey.shade100,
                 borderRadius: BorderRadius.circular(20)),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Text(
-                    'Filter',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 20,
-                        color: Colors.black.withOpacity(0.6)),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  _categoryDropDown(context, provider),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  _subCategoryDropDown(context, provider),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  _brandDropDown(context, provider),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      ElevatedButton(onPressed: () {}, child: Text('Clear')),
-                      ElevatedButton(onPressed: () {}, child: Text('Apply'))
-                    ],
-                  )
-                ],
+            child: Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Text(
+                      'Filter',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 20,
+                          color: Colors.black.withOpacity(0.6)),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    _categoryDropDown(context, provider),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    _subCategoryDropDown(context, provider),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    _brandDropDown(context, provider),
+                    SizedBox(height: 50,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        ElevatedButton(onPressed: () {}, child: Text('Clear')),
+                        ElevatedButton(onPressed: () {}, child: Text('Apply'))
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
           );
@@ -80,11 +78,11 @@ Widget _categoryDropDown(
               prefixIcon: Icon(Icons.category))),
       popupProps: PopupProps.menu(
         showSearchBox: true,
+        constraints: BoxConstraints(maxHeight: 280),
         searchFieldProps: TextFieldProps(
           decoration: InputDecoration(
               labelText: 'Search...',
               border: InputBorder.none,
-              constraints: BoxConstraints(maxHeight: 100),
               contentPadding:
                   EdgeInsets.symmetric(horizontal: 12, vertical: 6)),
         ),
@@ -118,8 +116,9 @@ Widget _subCategoryDropDown(
               contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
               prefixIcon: Icon(Icons.category))),
       popupProps: PopupPropsMultiSelection.menu(
+        constraints: BoxConstraints(maxHeight: 280),
         showSearchBox: false,
-        showSelectedItems: false,
+        showSelectedItems: true,
         searchFieldProps: TextFieldProps(
             decoration: InputDecoration(
           labelText: 'Search...',
@@ -135,7 +134,7 @@ Widget _subCategoryDropDown(
               children: [
                 TextButton(
                     style: TextButton.styleFrom(
-                        padding: EdgeInsets.only(left: 8, top: 10),
+                        padding: EdgeInsets.only(left: 32, top: 10),
                         minimumSize: Size(0, 0)),
                     onPressed: () {
                       final allSub =
@@ -166,20 +165,18 @@ Widget _subCategoryDropDown(
         checkBoxBuilder: (context, item, isDisabled, isSelected) =>
             SizedBox.shrink(),
         itemBuilder: (context, item, isDisabled, isSelected) {
-          return InkWell(
-            onTap: () {
-              final currentList = List<String>.from(provider.selectSubCategories);
-              if (isSelected){
-                currentList.remove(item);
-              } 
-              else {
-                currentList.add(item);
-              }
-              provider.updateSelectedSubCategories(currentList);
-            },
-            child: Row(
-            children: [
-              Checkbox(
+          return ListTile(
+              onTap: () {
+                final currentList =
+                    List<String>.from(provider.selectSubCategories);
+                if (isSelected) {
+                  currentList.remove(item);
+                } else {
+                  currentList.add(item);
+                }
+                provider.updateSelectedSubCategories(currentList);
+              },
+              leading: Checkbox(
                 value: isSelected,
                 onChanged: (checked) {
                   final selectedSubList =
@@ -192,15 +189,24 @@ Widget _subCategoryDropDown(
                   provider.updateSelectedSubCategories(selectedSubList);
                 },
               ),
-              Text(item)
-            ],
-          ),
-          );
+              title: Text(item));
         },
       ),
-      // dropdownBuilder: (context, selectedItems) {
-      //   return
-      // },
+      dropdownBuilder: (context, selectedItems) {
+        return Wrap(
+          spacing: 5,
+          children: selectedItems.map((item) {
+            return InputChip(
+              label: Text(item),
+              deleteIcon: Icon(Icons.clear_outlined),
+              onDeleted: () {
+                final newList = List<String>.from(selectedItems)..remove(item);
+                provider.updateSelectedSubCategories(newList);
+              },
+            );
+          }).toList(),
+        );
+      },
       items: (filter, loadProps) {
         return provider.subCategoryList;
       },
@@ -214,6 +220,31 @@ Widget _subCategoryDropDown(
 
 Widget _brandDropDown(BuildContext context, FilterCategoryNotifier provider) {
   return Container(
-    child: Text('B'),
+    padding: EdgeInsets.all(10),
+    child: DropdownSearch<String>(
+      decoratorProps: DropDownDecoratorProps(
+          decoration: InputDecoration(
+              labelText: 'Brand',
+              hintText: 'Select a Brand',
+              border: OutlineInputBorder(),
+              contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              prefixIcon: Icon(Icons.store_mall_directory_outlined))),
+      popupProps: PopupProps.menu(
+          showSearchBox: true,
+          constraints: BoxConstraints(maxHeight: 280),
+          searchFieldProps: TextFieldProps(
+              decoration: InputDecoration(
+                  labelText: 'Search...',
+                  border: InputBorder.none,
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 12, vertical: 6)))),
+      items: (filter, loadProps) {
+        return provider.brandList;
+      },
+      onChanged: (value) {
+        provider.onSelectBrand(value);
+      },
+      selectedItem: provider.selectBrand,
+    ),
   );
 }
