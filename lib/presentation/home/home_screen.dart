@@ -4,9 +4,7 @@ import 'package:retail/common/helper/app_navigation.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:retail/presentation/cart/cart_list.dart';
 import 'package:retail/presentation/category/widget/product_item.dart';
-import 'package:retail/presentation/filter/widget/selected_filter_list.dart';
 import 'package:retail/presentation/home/notifier/home_notifier.dart';
-import 'package:retail/presentation/home/widgets/category_item.dart';
 import 'package:retail/presentation/filter/filter_container.dart';
 import 'package:retail/presentation/home/widgets/home_filter_item.dart';
 import 'package:retail/presentation/order/order_screen.dart';
@@ -49,9 +47,7 @@ class HomeScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                    SizedBox(
-                      height: 4,
-                    ),
+                    SizedBox.shrink(),
                     SizedBox(
                       height: 30,
                       child: ListView.separated(

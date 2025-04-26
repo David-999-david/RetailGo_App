@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:retail/common/helper/app_navigation.dart';
 import 'package:retail/presentation/filter/notifier/filter_category_notifier.dart';
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:retail/presentation/home/home_screen.dart';
 
 class FilterContainer extends StatelessWidget {
   const FilterContainer({super.key});
@@ -22,39 +23,46 @@ class FilterContainer extends StatelessWidget {
             decoration: BoxDecoration(
                 color: Colors.grey.shade100,
                 borderRadius: BorderRadius.circular(20)),
-            child: Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Text(
-                      'Filter',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 20,
-                          color: Colors.black.withOpacity(0.6)),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    _categoryDropDown(context, provider),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    _subCategoryDropDown(context, provider),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    _brandDropDown(context, provider),
-                    SizedBox(height: 50,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ElevatedButton(onPressed: () {}, child: Text('Clear')),
-                        ElevatedButton(onPressed: () {}, child: Text('Apply'))
-                      ],
-                    )
-                  ],
-                ),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Text(
+                    'Filter',
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 20,
+                        color: Colors.black.withOpacity(0.6)),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  _categoryDropDown(context, provider),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  _subCategoryDropDown(context, provider),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  _brandDropDown(context, provider),
+                  SizedBox(
+                    height: 50,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ElevatedButton(
+                          onPressed: () {
+                            provider.clearAllFilter();
+                          },
+                          child: Text('Clear')),
+                      ElevatedButton(onPressed: () {
+                        provider.getAllFilterList();
+                        AppNavigator.push(context, HomeScreen(allFilterList: provider.getAllFilterList()))
+;                      }, child: Text('Apply'))
+                    ],
+                  )
+                ],
               ),
             ),
           );
