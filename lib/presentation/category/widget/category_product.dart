@@ -106,11 +106,7 @@ AppBar _appBar(BuildContext context, HomeNotifier provider) {
         children: [
           CircularActionButton(
               onTap: () {
-                AppNavigator.push(
-                    context,
-                    HomeScreen(
-                      allFilterList: [],
-                    ));
+                AppNavigator.push(context, HomeScreen());
               },
               hSize: 30,
               wSize: 30,

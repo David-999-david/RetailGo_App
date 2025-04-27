@@ -6,13 +6,12 @@ import 'package:retail/presentation/cart/cart_list.dart';
 import 'package:retail/presentation/category/widget/product_item.dart';
 import 'package:retail/presentation/home/notifier/home_notifier.dart';
 import 'package:retail/presentation/filter/filter_container.dart';
-import 'package:retail/presentation/home/widgets/home_filter_item.dart';
 import 'package:retail/presentation/order/order_screen.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key, required this.allFilterList});
+  // const HomeScreen({super.key, required this.allFilterList});
 
-  final List<String> allFilterList;
+  // final List<String> allFilterList;
 
   @override
   Widget build(BuildContext context) {
@@ -30,40 +29,40 @@ class HomeScreen extends StatelessWidget {
                     SizedBox(
                       height: 10,
                     ),
-                    if (allFilterList.isNotEmpty)
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Text(
-                              'YOUR FILTER',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 20,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    SizedBox.shrink(),
-                    SizedBox(
-                      height: 30,
-                      child: ListView.separated(
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) {
-                            return HomeFilterItem(
-                              selectSubCategories: allFilterList[index],
-                            );
-                          },
-                          separatorBuilder: (context, index) {
-                            return SizedBox(
-                              width: 10,
-                            );
-                          },
-                          itemCount: allFilterList.length),
-                    ),
+                    // if (allFilterList.isNotEmpty)
+                    //   Row(
+                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //     children: [
+                    //       Padding(
+                    //         padding: const EdgeInsets.only(left: 10),
+                    //         child: Text(
+                    //           'YOUR FILTER',
+                    //           style: TextStyle(
+                    //             color: Colors.black,
+                    //             fontWeight: FontWeight.w600,
+                    //             fontSize: 20,
+                    //           ),
+                    //         ),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // SizedBox.shrink(),
+                    // SizedBox(
+                    //   height: 30,
+                    //   child: ListView.separated(
+                    //       scrollDirection: Axis.horizontal,
+                    //       itemBuilder: (context, index) {
+                    //         return HomeFilterItem(
+                    //           selectSubCategories: allFilterList[index],
+                    //         );
+                    //       },
+                    //       separatorBuilder: (context, index) {
+                    //         return SizedBox(
+                    //           width: 10,
+                    //         );
+                    //       },
+                    //       itemCount: allFilterList.length),
+                    // ),
 
                     // Container(
                     //   alignment: Alignment.center,
