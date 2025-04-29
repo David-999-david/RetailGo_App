@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:retail/presentation/confirm_order_screen/notifier/confirm_order_notifier.dart';
 import 'package:retail/presentation/confirm_order_screen/widget/cart_items_box.dart';
 import 'package:retail/presentation/confirm_order_screen/widget/location_box.dart';
+import 'package:retail/presentation/confirm_order_screen/widget/payment_choice_box.dart';
 import 'package:retail/presentation/confirm_order_screen/widget/price_box.dart';
 
 class ConfirmOrderScreen extends StatelessWidget {
@@ -29,7 +30,9 @@ class ConfirmOrderScreen extends StatelessWidget {
                       ),
                       CartItemsBox(),
                       SizedBox(height: 20,),
-                      PriceBox()
+                      PriceBox(),
+                      SizedBox(height: 20,),
+                      PaymentChoiceBox()
                     ],
                   ),
                 ),

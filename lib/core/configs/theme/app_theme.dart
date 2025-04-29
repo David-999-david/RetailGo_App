@@ -3,6 +3,7 @@ import 'package:retail/core/configs/theme/app_colors.dart';
 
 class AppTheme {
   static final appTheme = ThemeData(
+    useMaterial3: true,
     scaffoldBackgroundColor: AppColors.scaffoldBackgroundColor,
     primaryColor: AppColors.primary,
     brightness: Brightness.light,

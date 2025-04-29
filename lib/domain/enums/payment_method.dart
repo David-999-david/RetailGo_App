@@ -1,0 +1,4 @@
+enum PaymentMethod {
+  cashOnDelivery,
+  onlinePayment,
+}

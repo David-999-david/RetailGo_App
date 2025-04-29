@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:retail/data/cart/model/cart_model.dart';
 import 'package:retail/domain/cart/usecase/cart_usecase.dart';
+import 'package:retail/domain/enums/payment_method.dart';
 
 class ConfirmOrderNotifier extends ChangeNotifier{
   List<CartModel> _cartList = [];
@@ -25,6 +26,18 @@ class ConfirmOrderNotifier extends ChangeNotifier{
     final discountAmount = double.tryParse(item.discount) ?? 0.0;
     return sum + (discountAmount * item.qty);
   });
+
+  double get totalPrice => subTotal - discountTotal;
+
+  PaymentMethod _selectedMethod = PaymentMethod.cashOnDelivery;
+  PaymentMethod get selectedMethod => _selectedMethod;
+
+  void selectMethod(PaymentMethod method){
+    if (_selectedMethod == method) return;
+    _selectedMethod = method;
+    notifyListeners();
+  }
+
 
   
 }
