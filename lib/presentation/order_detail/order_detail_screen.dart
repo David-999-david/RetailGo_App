@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:retail/common/helper/app_navigation.dart';
 import 'package:retail/data/order/model/order_model.dart';
 import 'package:retail/presentation/order_detail/notifier/order_detail_notifier.dart';
-import 'package:retail/presentation/order_detail/widgets/order_detail_item.dart';
 import 'package:retail/presentation/order_detail/widgets/order_summary.dart';
 import 'package:retail/presentation/order_detail/widgets/payment_detail.dart';
 import 'package:retail/presentation/order_detail/widgets/receiver_info.dart';
@@ -15,7 +14,7 @@ class OrderDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isCompleted = order.status == 'Completed';
+    // bool isCompleted = order.status == 'Completed';
     return ChangeNotifierProvider(
       create: (context) =>
           OrderDetailNotifier(orderModel: order)..getOrderItems(),

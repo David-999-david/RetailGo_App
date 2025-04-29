@@ -70,11 +70,11 @@ AppBar _appBar(BuildContext context) {
             width: 35,
             padding: EdgeInsets.all(3),
             decoration: BoxDecoration(
-                color: Colors.blue, borderRadius: BorderRadius.circular(10)),
+                color: Color(0xFFE0E0E0), borderRadius: BorderRadius.circular(10)),
             child: Icon(
               Icons.settings,
               size: 20,
-              color: Colors.black,
+              color: Color(0xFF424242),
             ),
           ),
         ),
@@ -113,9 +113,10 @@ Widget searchBar(BuildContext context, SearchScreenProvider provider) {
             width: 38,
             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10), color: Colors.blue),
+                borderRadius: BorderRadius.circular(10), color: Color(0xFFE0E0E0)),
             child: Icon(
               Icons.filter_list,
+              color: Color(0xFF424242),
               size: 20,
             ),
           ),
