@@ -225,7 +225,6 @@ class HomeRemote {
   },
 ];
 
-
       for (var data in dataList) {
         productList.add(ProductModel.fromJson(data));
       }

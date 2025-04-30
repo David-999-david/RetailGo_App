@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:retail/common/helper/app_navigation.dart';
 import 'package:retail/presentation/confirm_order_screen/notifier/confirm_order_notifier.dart';
+import 'package:retail/presentation/confirm_order_screen/widget/choose_delivery_location.dart';
 
 class LocationBox extends StatelessWidget {
   const LocationBox({super.key});
@@ -46,7 +48,9 @@ class LocationBox extends StatelessWidget {
                   ),
                 ),
                 IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      AppNavigator.push(context, ChooseDeliveryLocation());
+                    },
                     icon: Icon(
                       Icons.arrow_forward_ios_rounded,
                       size: 22,

@@ -18,7 +18,7 @@ class PaymentChoiceBox extends StatelessWidget {
             children: [
               Container(
                 width: double.infinity,
-                height: 90,
+                height: 87,
                 decoration: BoxDecoration(
                     color: Colors.white,
                     border:
@@ -62,6 +62,11 @@ class PaymentChoiceBox extends StatelessWidget {
                     ],
                     selected: {provider.selectedMethod},
                     style: ButtonStyle(
+                      shape: WidgetStateProperty.all<OutlinedBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)
+                        )
+                      ),
                         backgroundColor: WidgetStateProperty.resolveWith(
                       (states) {
                         if (states.contains(WidgetState.selected)) {

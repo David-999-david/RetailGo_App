@@ -72,15 +72,15 @@ AppBar _appBar(BuildContext context) {
   return AppBar(
     automaticallyImplyLeading: false,
     backgroundColor: Colors.white,
-    leading: IconButton(
-      onPressed: () {
-        AppNavigator.pop(context);
-      },
-      icon: Icon(
-        Icons.arrow_back_ios_new_rounded,
-        color: Colors.grey,
-      ),
-    ),
+    // leading: IconButton(
+    //   onPressed: () {
+    //     AppNavigator.pop(context);
+    //   },
+    //   icon: Icon(
+    //     Icons.arrow_back_ios_new_rounded,
+    //     color: Colors.grey,
+    //   ),
+    // ),
     centerTitle: true,
     title: Text(
       'My Orders',

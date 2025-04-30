@@ -1,0 +1,4 @@
+enum AddressEnum {
+  fromSaved,
+  addNew,
+}
