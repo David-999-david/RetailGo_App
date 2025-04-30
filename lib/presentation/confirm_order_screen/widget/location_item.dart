@@ -12,7 +12,7 @@ class LocationItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final readProvider = context.read<ConfirmOrderNotifier>();
     final selectedAddress =
-        context.watch<ConfirmOrderNotifier>().selectedddress;
+        context.watch<ConfirmOrderNotifier>().selectedAddress;
     bool isSelected = selectedAddress?.addressId == address.addressId;
     return InkWell(
       onTap: () {

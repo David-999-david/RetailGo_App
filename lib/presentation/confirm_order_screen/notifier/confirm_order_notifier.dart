@@ -59,7 +59,7 @@ class ConfirmOrderNotifier extends ChangeNotifier{
   }
 
   AddressModel? _selectedAddress;
-  AddressModel? get  selectedddress => _selectedAddress;
+  AddressModel? get  selectedAddress => _selectedAddress;
   void onSelectAddress(AddressModel address){
     _selectedAddress = address;
     debugPrint('$address');

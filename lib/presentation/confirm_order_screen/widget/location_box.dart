@@ -10,7 +10,7 @@ class LocationBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<ConfirmOrderNotifier>();
-    final deliveryAddress = provider.selectedddress;
+    final deliveryAddress = provider.selectedAddress;
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -39,8 +39,13 @@ class LocationBox extends StatelessWidget {
                         color: Colors.black,
                         fontWeight: FontWeight.w600),
                   ),
-                  Text(
-                    '${deliveryAddress!.addressLine},${deliveryAddress!.city},${deliveryAddress!.state},${deliveryAddress!.country}',
+                  (deliveryAddress != null) ?
+                  Text('${deliveryAddress.addressLine},${deliveryAddress.city},${deliveryAddress.state},${deliveryAddress.country}',
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.black,
+                        overflow: TextOverflow.ellipsis),
+                  ) : Text('Default User Location',
                     style: TextStyle(
                         fontSize: 16,
                         color: Colors.black,
