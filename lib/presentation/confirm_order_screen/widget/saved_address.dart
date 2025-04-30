@@ -8,25 +8,19 @@ class SavedAddress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => ConfirmOrderNotifier()..getAllAddress(),
-      child: Consumer<ConfirmOrderNotifier>(
-        builder: (context, provider, child) {
-          return Expanded(
-            child: SizedBox(
-              width: double.infinity,
-              child: ListView.separated(
-                scrollDirection: Axis.vertical,
-                itemBuilder: (context, index) {
-                  return LocationItem(address: provider.addressList[index],);
-                }, 
-                separatorBuilder: (context, index) {
-                  return SizedBox(height: 20,);
-                }, 
-                itemCount: provider.addressList.length),
-            ),
-          );
-        },
+    final provider = context.watch<ConfirmOrderNotifier>();
+    return Expanded(
+      child: SizedBox(
+        width: double.infinity,
+        child: ListView.separated(
+          scrollDirection: Axis.vertical,
+          itemBuilder: (context, index) {
+            return LocationItem(address: provider.addressList[index],);
+          }, 
+          separatorBuilder: (context, index) {
+            return SizedBox(height: 20,);
+          }, 
+          itemCount: provider.addressList.length),
       ),
     );
   }

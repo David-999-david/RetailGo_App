@@ -9,57 +9,63 @@ class LocationBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => ConfirmOrderNotifier(),
-      child: Consumer<ConfirmOrderNotifier>(
-        builder: (context, provider, child) {
-          return Container(
-            width: double.infinity,
-            padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-            decoration: BoxDecoration(
-              color: Colors.white,
-                border: Border.all(color: Color.fromARGB(255, 184, 184, 184)),
-                borderRadius: BorderRadius.circular(10)),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Deliver to',
-                          style: TextStyle(
-                              fontSize: 21,
-                              color: Colors.black,
-                              fontWeight: FontWeight.w600),
-                        ),
-                        Text(
-                          '1456 St,Mandalay, ChanAyeTharSan',
-                          style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.black,
-                              overflow: TextOverflow.ellipsis),
-                        )
-                      ],
-                    ),
+    final provider = context.watch<ConfirmOrderNotifier>();
+    final deliveryAddress = provider.selectedddress;
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(color: Color.fromARGB(255, 184, 184, 184)),
+          borderRadius: BorderRadius.circular(10)),
+      child: Row(
+        children: [
+          CircleAvatar(
+            radius: 20,
+            backgroundColor: Colors.blue.shade600,
+            foregroundColor: Colors.white,
+            child: Icon(Icons.location_on),
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Deliver to',
+                    style: TextStyle(
+                        fontSize: 21,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w600),
                   ),
-                ),
-                IconButton(
-                    onPressed: () {
-                      AppNavigator.push(context, ChooseDeliveryLocation());
-                    },
-                    icon: Icon(
-                      Icons.arrow_forward_ios_rounded,
-                      size: 22,
-                      color: const Color.fromARGB(255, 184, 184, 184),
-                    ))
-              ],
+                  Text(
+                    '${deliveryAddress!.addressLine},${deliveryAddress!.city},${deliveryAddress!.state},${deliveryAddress!.country}',
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.black,
+                        overflow: TextOverflow.ellipsis),
+                  )
+                ],
+              ),
             ),
-          );
-        },
+          ),
+          IconButton(
+              onPressed: () {
+                final provider = context.read<ConfirmOrderNotifier>();
+                AppNavigator.push(
+                    context,
+                    ChangeNotifierProvider.value(
+                      value: provider,
+                      child: ChooseDeliveryLocation(),
+                    ));
+              },
+              icon: Icon(
+                Icons.arrow_forward_ios_rounded,
+                size: 22,
+                color: const Color.fromARGB(255, 184, 184, 184),
+              ))
+        ],
       ),
     );
   }

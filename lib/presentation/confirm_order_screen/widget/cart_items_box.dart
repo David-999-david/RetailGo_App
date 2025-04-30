@@ -8,31 +8,26 @@ class CartItemsBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => ConfirmOrderNotifier()..getAllcartList(),
-      child: Consumer<ConfirmOrderNotifier>(
-        builder: (context, provider, child) {
-          return Container(
-              width: double.infinity,
-              height: 330,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(color: Color.fromARGB(255, 184, 184, 184)),
-                  borderRadius: BorderRadius.circular(10)),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(left: 17, right: 17, top: 5),
-                      child: _cartItemsTable(context, provider),
-                    ),
-                  ],
-                ),
-              ));
-        },
-      ),
-    );
+      final provider = context.watch<ConfirmOrderNotifier>();
+        return Container(
+            width: double.infinity,
+            height: 330,
+            decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(color: Color.fromARGB(255, 184, 184, 184)),
+                borderRadius: BorderRadius.circular(10)),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 17, right: 17, top: 5),
+                    child: _cartItemsTable(context, provider),
+                  ),
+                ],
+              ),
+            ));
+
   }
 }
 

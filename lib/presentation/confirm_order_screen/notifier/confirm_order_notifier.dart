@@ -58,6 +58,14 @@ class ConfirmOrderNotifier extends ChangeNotifier{
     notifyListeners();
   }
 
+  AddressModel? _selectedAddress;
+  AddressModel? get  selectedddress => _selectedAddress;
+  void onSelectAddress(AddressModel address){
+    _selectedAddress = address;
+    debugPrint('$address');
+    notifyListeners();
+  }
+
   final int userId = 9239;
   TextEditingController addressLine = TextEditingController();
   TextEditingController city = TextEditingController();

@@ -10,72 +10,67 @@ class ChooseDeliveryLocation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => ConfirmOrderNotifier(),
-      child: Consumer<ConfirmOrderNotifier>(
-        builder: (context, provider, child) {
-          bool addNewAddress = provider.activeOn == AddressEnum.addNew;
-          return Scaffold(
-            appBar: _appBar(context),
-            body: Center(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 8),
-                child: Column(
-                  children: [
-                    SegmentedButton(
-                        multiSelectionEnabled: false,
-                        showSelectedIcon: false,
-                        direction: Axis.horizontal,
-                        onSelectionChanged: (newSelected) {
-                          provider.onSelect(newSelected.first);
-                        },
-                        segments: [
-                          ButtonSegment(
-                              value: AddressEnum.fromSaved,
-                              label: Text('Saved Addresses',style: TextStyle(fontSize: 17),)),
-                          ButtonSegment(
-                              value: AddressEnum.addNew, label: Text('Add New',style: TextStyle(fontSize: 17)))
-                        ],
-                        selected: {
-                          provider.activeOn
-                        },
-                        style: ButtonStyle(
-                          shape: WidgetStateProperty.all<OutlinedBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20)
-                            )
-                          ),
-                          backgroundColor: WidgetStateProperty.resolveWith((states){
-                            if (states.contains(WidgetState.selected)){
-                              return Colors.blue.shade600;
-                            }
-                            return Colors.white;
-                          }),
-                          foregroundColor: WidgetStateProperty.resolveWith((states){
-                            if (states.contains(WidgetState.selected)){
-                              return Colors.white;
-                            }
-                            return Colors.black87;
-                          },
-                          ),
-                          fixedSize: WidgetStateProperty.all(
-                            Size(330, 70)
-                          ),
-                          padding: WidgetStateProperty.all(
-                            EdgeInsets.symmetric(horizontal: 15,vertical: 15)
+    final provider = context.watch<ConfirmOrderNotifier>();
+        bool addNewAddress = provider.activeOn == AddressEnum.addNew;
+        return Scaffold(
+          appBar: _appBar(context),
+          body: Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 8),
+              child: Column(
+                children: [
+                  SegmentedButton(
+                      multiSelectionEnabled: false,
+                      showSelectedIcon: false,
+                      direction: Axis.horizontal,
+                      onSelectionChanged: (newSelected) {
+                        provider.onSelect(newSelected.first);
+                      },
+                      segments: [
+                        ButtonSegment(
+                            value: AddressEnum.fromSaved,
+                            label: Text('Saved Addresses',style: TextStyle(fontSize: 17),)),
+                        ButtonSegment(
+                            value: AddressEnum.addNew, label: Text('Add New',style: TextStyle(fontSize: 17)))
+                      ],
+                      selected: {
+                        provider.activeOn
+                      },
+                      style: ButtonStyle(
+                        shape: WidgetStateProperty.all<OutlinedBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)
                           )
                         ),
+                        backgroundColor: WidgetStateProperty.resolveWith((states){
+                          if (states.contains(WidgetState.selected)){
+                            return Colors.blue.shade600;
+                          }
+                          return Colors.white;
+                        }),
+                        foregroundColor: WidgetStateProperty.resolveWith((states){
+                          if (states.contains(WidgetState.selected)){
+                            return Colors.white;
+                          }
+                          return Colors.black87;
+                        },
                         ),
-                        SizedBox(height: 20,),
-                        addNewAddress ? AddNewAddress() : SavedAddress()
-                  ],
-                ),
+                        fixedSize: WidgetStateProperty.all(
+                          Size(330, 70)
+                        ),
+                        padding: WidgetStateProperty.all(
+                          EdgeInsets.symmetric(horizontal: 15,vertical: 15)
+                        )
+                      ),
+                      ),
+                      SizedBox(height: 20,),
+                      addNewAddress ? AddNewAddress() : SavedAddress()
+                ],
               ),
             ),
-          );
-        },
-      ),
-    );
+          ),
+        );
+
   }
 }
 

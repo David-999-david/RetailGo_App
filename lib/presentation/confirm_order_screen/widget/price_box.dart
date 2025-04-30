@@ -7,31 +7,26 @@ class PriceBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => ConfirmOrderNotifier()..getAllcartList(),
-      child: Consumer<ConfirmOrderNotifier>(
-        builder: (context, provider, child) {
-          return Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: Colors.white,
-                border: Border.all(color: Color.fromARGB(255, 184, 184, 184)),
-                borderRadius: BorderRadius.circular(10)),
-            child: Padding(
-              padding:
-                  EdgeInsets.only(left: 17, right: 17, top: 10, bottom: 10),
-              child: Column(
-                children: [
-                  _priceTable(context, provider),
-                  Divider(),
-                  _priceTable2(context, provider)
-                ],
-              ),
+    final provider = context.watch<ConfirmOrderNotifier>();
+        return Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: Colors.white,
+              border: Border.all(color: Color.fromARGB(255, 184, 184, 184)),
+              borderRadius: BorderRadius.circular(10)),
+          child: Padding(
+            padding:
+                EdgeInsets.only(left: 17, right: 17, top: 10, bottom: 10),
+            child: Column(
+              children: [
+                _priceTable(context, provider),
+                Divider(),
+                _priceTable2(context, provider)
+              ],
             ),
-          );
-        },
-      ),
-    );
+          ),
+        );
+
   }
 }
 
