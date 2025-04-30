@@ -66,6 +66,7 @@ class ChooseDeliveryLocation extends StatelessWidget {
                           )
                         ),
                         ),
+                        SizedBox(height: 20,),
                         addNewAddress ? AddNewAddress() : SavedAddress()
                   ],
                 ),
