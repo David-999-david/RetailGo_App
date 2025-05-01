@@ -16,7 +16,7 @@ class LocationItem extends StatelessWidget {
     bool isSelected = selectedAddress?.addressId == address.addressId;
     return InkWell(
       onTap: () {
-        readProvider.onSelectAddress(address);
+        readProvider.onSelectAddress(context,address);
       },
       child: Container(
         width: double.infinity,

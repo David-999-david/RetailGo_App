@@ -67,7 +67,7 @@ Table _priceTable2(BuildContext context, ConfirmOrderNotifier provider) {
     columnWidths: {0: FlexColumnWidth(), 1: FlexColumnWidth()},
     children: [
       _priceTableRow2(
-          'Total', '\$${(provider.subTotal).toStringAsFixed(2)}')
+          'Total', '\$${(provider.totalPrice).toStringAsFixed(2)}')
     ],
   );
 }

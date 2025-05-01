@@ -26,12 +26,12 @@ class ConfirmOrderScreen extends StatelessWidget {
                     children: [
                       LocationBox(),
                       SizedBox(
-                        height: 10,
+                        height: 15,
                       ),
                       CartItemsBox(),
-                      SizedBox(height: 10,),
+                      SizedBox(height: 15,),
                       PriceBox(),
-                      SizedBox(height: 10,),
+                      SizedBox(height: 15,),
                       PaymentChoiceBox()
                     ],
                   ),

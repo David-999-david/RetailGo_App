@@ -88,6 +88,10 @@ class AddNewAddress extends StatelessWidget {
                           hintStyle: TextStyle(
                               fontWeight: FontWeight.w600,
                               color: Colors.black)),
+                      validator: (value) {
+                        if  (value == null || value.isEmpty)return 'Required';
+                        if (int.tryParse(value) == null)return 'Postal Code required number';
+                      },
                     ),
                   ),
                 ],
