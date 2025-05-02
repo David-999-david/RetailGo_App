@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:retail/common/helper/app_navigation.dart';
 import 'package:retail/data/address/model/address_model.dart';
 import 'package:retail/data/cart/model/cart_model.dart';
+import 'package:retail/data/order/model/order_model.dart';
 import 'package:retail/domain/address/usecase/address_usecase.dart';
 import 'package:retail/domain/cart/usecase/cart_usecase.dart';
 import 'package:retail/domain/enums/address_enum.dart';
 import 'package:retail/domain/enums/payment_method.dart';
+import 'package:retail/domain/order/usecase/order_usecase.dart';
 
 class ConfirmOrderNotifier extends ChangeNotifier {
   List<CartModel> _cartList = [];
@@ -60,16 +61,15 @@ class ConfirmOrderNotifier extends ChangeNotifier {
   AddressModel? get selectedAddress => _selectedAddress;
   void onSelectAddress(BuildContext context, AddressModel address) {
     _selectedAddress = address;
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text(
-        'Delivery Address is choice',
-        style: TextStyle(color: Colors.black,fontSize: 17),
-      ),
-      backgroundColor: Colors.white,
-    ),snackBarAnimationStyle: AnimationStyle(
-      duration: Duration(seconds: 1)
-    )
-    );
+    ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'Delivery Address is choice',
+            style: TextStyle(color: Colors.black, fontSize: 17),
+          ),
+          backgroundColor: Colors.white,
+        ),
+        snackBarAnimationStyle: AnimationStyle(duration: Duration(seconds: 1)));
     notifyListeners();
   }
 
@@ -101,6 +101,27 @@ class ConfirmOrderNotifier extends ChangeNotifier {
         postalCode: int.tryParse(postalCode.text) ?? 0000);
     _addressList.insert(0, newAddress);
     _activeOn = AddressEnum.fromSaved;
+    notifyListeners();
+  }
+
+  placeOrder(BuildContext context, Widget child) {
+    return showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      builder: (context) => child,
+    );
+  }
+
+  List<OrderModel> _orderList = [];
+  List<OrderModel> get orderList => _orderList;
+
+  void getAllOrderList() async {
+    try {
+      _orderList = await GetAllOrdersUseCase().getAllOrders();
+    }
+    catch (e) {
+      debugPrint('Error : $e');
+    }
     notifyListeners();
   }
 }

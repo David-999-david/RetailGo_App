@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:retail/domain/enums/address_enum.dart';
 import 'package:retail/presentation/confirm_order_screen/notifier/confirm_order_notifier.dart';
-import 'package:retail/presentation/confirm_order_screen/widget/add_new_address.dart';
-import 'package:retail/presentation/confirm_order_screen/widget/saved_address.dart';
+import 'package:retail/presentation/confirm_order_screen/widget/location/add_new_address.dart';
+import 'package:retail/presentation/confirm_order_screen/widget/location/saved_address.dart';
 
 class ChooseDeliveryLocation extends StatelessWidget {
   const ChooseDeliveryLocation({super.key});
@@ -39,7 +39,7 @@ class ChooseDeliveryLocation extends StatelessWidget {
                       style: ButtonStyle(
                         shape: WidgetStateProperty.all<OutlinedBorder>(
                           RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20)
+                            borderRadius: BorderRadius.circular(12)
                           )
                         ),
                         backgroundColor: WidgetStateProperty.resolveWith((states){

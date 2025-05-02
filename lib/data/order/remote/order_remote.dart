@@ -44,18 +44,39 @@ class OrderRemote {
         },
         {
           "item_id": 16,
-          "product_name": "Cooling Pad",
+          "product_name": "Gaming Chari dkjfd dkkjflks ejrjdlkfjld",
           "quantity": 1,
           "price": 30.00,
           "sku": "CP-BLUE"
         },
         {
           "item_id": 15,
-          "product_name": "Cooling Pad",
+          "product_name": "Iphone",
           "quantity": 1,
           "price": 60.00,
           "sku": "CP-GREY"
-        }
+        },
+        {
+          "item_id": 12,
+          "product_name": "Gaming Deck",
+          "quantity": 1,
+          "price": 200.00,
+          "sku": "GL-RED-128GB"
+        },
+        {
+          "item_id": 12,
+          "product_name": "Gaming mouse",
+          "quantity": 1,
+          "price": 200.00,
+          "sku": "GL-RED-128GB"
+        },
+        {
+          "item_id": 12,
+          "product_name": "Gaming keyboard",
+          "quantity": 1,
+          "price": 200.00,
+          "sku": "GL-RED-128GB"
+        },
       ]
     },
     {

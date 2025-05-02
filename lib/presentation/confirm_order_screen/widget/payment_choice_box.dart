@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:retail/domain/enums/payment_method.dart';
 import 'package:retail/presentation/confirm_order_screen/notifier/confirm_order_notifier.dart';
+import 'package:retail/presentation/confirm_order_screen/widget/place_order/order_success_sheet.dart';
 
 class PaymentChoiceBox extends StatelessWidget {
   const PaymentChoiceBox({super.key});
@@ -16,7 +17,7 @@ class PaymentChoiceBox extends StatelessWidget {
       children: [
         Container(
           width: double.infinity,
-          height: 87,
+          height: 80,
           decoration: BoxDecoration(
               color: Colors.white,
               border: Border.all(color: Color.fromARGB(255, 184, 184, 184)),
@@ -35,22 +36,24 @@ class PaymentChoiceBox extends StatelessWidget {
                     value: PaymentMethod.cashOnDelivery,
                     label: Text(
                       'Cash On Delivery',
-                      style: TextStyle(fontSize: 17),
+                      style: TextStyle(fontSize: 15),
+                      textAlign: TextAlign.center,
                     ),
                     icon: Icon(
                       Icons.local_shipping_outlined,
-                      size: 50,
+                      size: 40,
                       color: onSelectedOnline ? Colors.black : Colors.white,
                     )),
                 ButtonSegment(
                     value: PaymentMethod.onlinePayment,
                     label: Text(
                       'Online Payment',
-                      style: TextStyle(fontSize: 17),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 15),
                     ),
                     icon: Icon(
                       Icons.credit_card,
-                      size: 50,
+                      size: 40,
                       color: onSelectedOnline ? Colors.white : Colors.black,
                     ))
               ],
@@ -77,12 +80,19 @@ class PaymentChoiceBox extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: 13,
+          height: 10,
         ),
         ElevatedButton(
             onPressed: () {
               if (onSelectedOnline) {
-              } else {}
+              } else {
+                provider.placeOrder(
+                    context,
+                    ChangeNotifierProvider.value(
+                      value: provider,
+                      child: OrderSuccessScreen(),
+                    ));
+              }
             },
             style: ElevatedButton.styleFrom(
                 fixedSize: Size(380, 60),

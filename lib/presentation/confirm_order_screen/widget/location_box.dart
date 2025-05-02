@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:retail/common/helper/app_navigation.dart';
 import 'package:retail/presentation/confirm_order_screen/notifier/confirm_order_notifier.dart';
-import 'package:retail/presentation/confirm_order_screen/widget/choose_delivery_location.dart';
+import 'package:retail/presentation/confirm_order_screen/widget/location/choose_delivery_location.dart';
 
 class LocationBox extends StatelessWidget {
   const LocationBox({super.key});
@@ -14,7 +14,7 @@ class LocationBox extends StatelessWidget {
     final list = provider.addressList;
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 13),
       decoration: BoxDecoration(
           color: Colors.white,
           border: Border.all(color: Color.fromARGB(255, 184, 184, 184)),

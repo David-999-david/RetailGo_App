@@ -12,7 +12,9 @@ class ConfirmOrderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => ConfirmOrderNotifier()..getAllcartList()..getAllAddress(),
+      create: (context) => ConfirmOrderNotifier()
+        ..getAllcartList()
+        ..getAllAddress(),
       child: Consumer<ConfirmOrderNotifier>(
         builder: (context, provider, child) {
           return Scaffold(
@@ -26,13 +28,17 @@ class ConfirmOrderScreen extends StatelessWidget {
                     children: [
                       LocationBox(),
                       SizedBox(
-                        height: 15,
+                        height: 10,
                       ),
                       CartItemsBox(),
-                      SizedBox(height: 15,),
+                      SizedBox(
+                        height: 10,
+                      ),
                       PriceBox(),
-                      SizedBox(height: 15,),
-                      PaymentChoiceBox()
+                      SizedBox(
+                        height: 10,
+                      ),
+                      PaymentChoiceBox(),
                     ],
                   ),
                 ),

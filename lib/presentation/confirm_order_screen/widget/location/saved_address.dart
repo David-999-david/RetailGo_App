@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:retail/presentation/confirm_order_screen/notifier/confirm_order_notifier.dart';
-import 'package:retail/presentation/confirm_order_screen/widget/location_item.dart';
+import 'package:retail/presentation/confirm_order_screen/widget/location/location_item.dart';
 
 class SavedAddress extends StatelessWidget {
   const SavedAddress({super.key});

@@ -41,38 +41,42 @@ class LocationItem extends StatelessWidget {
             SizedBox(
               width: 30,
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  address.addressLine,
-                  style: TextStyle(
-                      fontSize: 19,
-                      fontWeight: FontWeight.w600,
-                      color: isSelected ? Colors.white : Colors.black),
-                ),
-                SizedBox(
-                  height: 3,
-                ),
-                Text(
-                  '${address.city},${address.state},${address.country}',
-                  style: TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.w500,
-                      color: isSelected ? Colors.white : Colors.black),
-                ),
-                SizedBox(
-                  height: 3,
-                ),
-                Text(
-                  'Postal Code : ${address.postalCode}',
-                  style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w400,
-                      color: isSelected ? Colors.white : Colors.black),
-                )
-              ],
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    address.addressLine,
+                    style: TextStyle(
+                      overflow: TextOverflow.ellipsis,
+                        fontSize: 19,
+                        fontWeight: FontWeight.w600,
+                        color: isSelected ? Colors.white : Colors.black),
+                  ),
+                  SizedBox(
+                    height: 3,
+                  ),
+                  Text(
+                    '${address.city},${address.state},${address.country}',
+                    style: TextStyle(
+                      overflow: TextOverflow.ellipsis,
+                        fontSize: 17,
+                        fontWeight: FontWeight.w500,
+                        color: isSelected ? Colors.white : Colors.black),
+                  ),
+                  SizedBox(
+                    height: 3,
+                  ),
+                  Text(
+                    'Postal Code : ${address.postalCode}',
+                    style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w400,
+                        color: isSelected ? Colors.white : Colors.black),
+                  )
+                ],
+              ),
             )
           ],
         ),
