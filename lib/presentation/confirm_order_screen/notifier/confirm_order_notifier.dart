@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:retail/data/address/model/address_model.dart';
 import 'package:retail/data/cart/model/cart_model.dart';
 import 'package:retail/data/order/model/order_model.dart';
@@ -118,8 +119,7 @@ class ConfirmOrderNotifier extends ChangeNotifier {
   void getAllOrderList() async {
     try {
       _orderList = await GetAllOrdersUseCase().getAllOrders();
-    }
-    catch (e) {
+    } catch (e) {
       debugPrint('Error : $e');
     }
     notifyListeners();

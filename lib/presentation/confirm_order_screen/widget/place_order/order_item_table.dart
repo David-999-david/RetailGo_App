@@ -17,7 +17,8 @@ class OrderItemTable extends StatelessWidget {
           height: 200,
           child: SingleChildScrollView(
             child: Column(
-              children: [_orderTable(context, orderItemList),
+              children: [
+                _orderTable(context, orderItemList),
               ],
             ),
           ),
