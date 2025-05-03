@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:retail/common/helper/app_navigation.dart';
 import 'package:retail/data/order/model/order_model.dart';
+import 'package:retail/presentation/active_screen/active_screen.dart';
+import 'package:retail/presentation/order/order_screen.dart';
 import 'package:retail/presentation/order_detail/notifier/order_detail_notifier.dart';
 import 'package:retail/presentation/order_detail/widgets/order_summary.dart';
 import 'package:retail/presentation/order_detail/widgets/payment_detail.dart';
@@ -86,7 +88,7 @@ AppBar _appBar(BuildContext context, OrderModel order) {
     automaticallyImplyLeading: false,
     leading: IconButton(
         onPressed: () {
-          AppNavigator.pop(context);
+          AppNavigator.push(context,ActiveScreen(pageIndex: 2,));
         },
         padding: EdgeInsets.zero,
         constraints: BoxConstraints(),

@@ -80,7 +80,7 @@ class PaymentChoiceBox extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: 10,
+          height: 25,
         ),
         ElevatedButton(
             onPressed: () {

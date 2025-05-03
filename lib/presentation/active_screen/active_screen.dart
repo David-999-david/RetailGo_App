@@ -6,7 +6,9 @@ import 'package:retail/presentation/order/order_screen.dart';
 import 'package:retail/presentation/search_screen.dart/search_screen.dart';
 
 class ActiveScreen extends StatelessWidget{
-  const ActiveScreen({super.key});
+  const ActiveScreen({super.key,this.pageIndex = 0});
+
+  final int pageIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +17,7 @@ class ActiveScreen extends StatelessWidget{
       SearchScreen(allFilterList: []),
       OrderScreen(),
     ];
-  return ChangeNotifierProvider(create: (context)=> ActiveScreenProvider(),
+  return ChangeNotifierProvider(create: (context)=> ActiveScreenProvider()..activePageIndex(pageIndex),
   child: Consumer<ActiveScreenProvider>(builder: (context, provider, child) {
     return Scaffold(
       body: screenList[provider.currentIndex],

@@ -154,26 +154,26 @@ Widget searchTextBox(BuildContext context, HomeNotifier provider) {
           onSubmitted: (value) {},
         ),
       ),
-      Padding(
-        padding: const EdgeInsets.only(left: 8, right: 2),
-        child: Container(
-          height: 32,
-          width: 32,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12), color: Colors.blue),
-          child: IconButton(
-              constraints: BoxConstraints(),
-              padding: EdgeInsets.zero,
-              onPressed: () {
-                provider.showBottomSheet(context, FilterContainer());
-              },
-              icon: Icon(
-                Icons.filter_list,
-                color: Colors.white,
-                size: 17,
-              )),
-        ),
-      ),
+      // Padding(
+      //   padding: const EdgeInsets.only(left: 8, right: 2),
+      //   child: Container(
+      //     height: 32,
+      //     width: 32,
+      //     decoration: BoxDecoration(
+      //         borderRadius: BorderRadius.circular(12), color: Colors.blue),
+      //     child: IconButton(
+      //         constraints: BoxConstraints(),
+      //         padding: EdgeInsets.zero,
+      //         onPressed: () {
+      //           );
+      //         },
+      //         icon: Icon(
+      //           Icons.filter_list,
+      //           color: Colors.white,
+      //           size: 17,
+      //         )),
+      //   ),
+      // ),
       Padding(
         padding: EdgeInsets.all(8),
         child: Container(

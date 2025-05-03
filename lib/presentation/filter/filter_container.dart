@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:retail/common/helper/app_navigation.dart';
 import 'package:retail/presentation/filter/notifier/filter_category_notifier.dart';
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:retail/presentation/search_screen.dart/notifier/search_screen_provider.dart';
 import 'package:retail/presentation/search_screen.dart/search_screen.dart';
 
 class FilterContainer extends StatelessWidget {
@@ -58,7 +59,8 @@ class FilterContainer extends StatelessWidget {
                           child: Text('Clear')),
                       ElevatedButton(onPressed: () {
                         provider.getAllFilterList();
-                        AppNavigator.push(context, SearchScreen(allFilterList: provider.getAllFilterList()))
+                        Provider.of<SearchScreenProvider>(context,listen: false).setFilterList(provider.getAllFilterList());
+                        AppNavigator.pop(context)
 ;                      }, child: Text('Apply'))
                     ],
                   )

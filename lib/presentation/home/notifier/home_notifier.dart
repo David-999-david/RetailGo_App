@@ -42,12 +42,7 @@ class HomeNotifier extends ChangeNotifier {
     });
   }
 
-  showBottomSheet(BuildContext context, Widget child) {
-    return showModalBottomSheet(
-        isScrollControlled: true,
-        context: context,
-        builder: (BuildContext context) => child);
-  }
+  
 
   void getAllProduct() async {
     try {

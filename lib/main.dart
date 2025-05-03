@@ -8,12 +8,7 @@ import 'package:retail/presentation/filter/notifier/filter_category_notifier.dar
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await StorageUtils.getInstance();
-  runApp(MultiProvider(
-    providers: [
-      ChangeNotifierProvider(create: (_) => FilterCategoryNotifier())
-    ],
-    child: Main(),
-  ));
+  runApp(Main());
 }
 
 class Main extends StatelessWidget {

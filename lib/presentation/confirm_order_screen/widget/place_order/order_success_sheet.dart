@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:retail/common/helper/app_navigation.dart';
 import 'package:retail/presentation/confirm_order_screen/notifier/confirm_order_notifier.dart';
 import 'package:retail/presentation/confirm_order_screen/widget/place_order/order_item_box.dart';
+import 'package:retail/presentation/home/home_screen.dart';
+import 'package:retail/presentation/order_detail/order_detail_screen.dart';
 
 class OrderSuccessScreen extends StatelessWidget {
   const OrderSuccessScreen({super.key});
@@ -50,7 +53,9 @@ class OrderSuccessScreen extends StatelessWidget {
                   side: BorderSide(color: Color.fromARGB(255, 184, 184, 184)),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10))),
-              onPressed: () {},
+              onPressed: () {
+                AppNavigator.push(context, OrderDetailScreen(order: provider.orderList.first));
+              },
               child: Text(
                 'View My Orders',
                 style: TextStyle(fontSize: 21),
@@ -59,7 +64,9 @@ class OrderSuccessScreen extends StatelessWidget {
             height: 10,
           ),
           ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                AppNavigator.push(context, HomeScreen());
+              },
               style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
                   foregroundColor: Colors.green.shade600,

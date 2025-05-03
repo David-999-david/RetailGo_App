@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:retail/presentation/filter/filter_container.dart';
 import 'package:retail/presentation/search_screen.dart/notifier/search_screen_provider.dart';
 import 'package:retail/presentation/search_screen.dart/notifier/widget/filter_item.dart';
 
@@ -15,7 +16,7 @@ class SearchScreen extends StatelessWidget {
       child: Consumer<SearchScreenProvider>(
         builder: (context, provider, child) {
           return Scaffold(
-            appBar: _appBar(context),
+            appBar: _appBar(context,provider),
             body: Padding(
               padding: EdgeInsets.only(
                 top: 5,
@@ -35,14 +36,14 @@ class SearchScreen extends StatelessWidget {
                         child: ListView.separated(
                           scrollDirection: Axis.horizontal,
                             itemBuilder: (context, index) {
-                              return FilterItem(item: allFilterList[index]);
+                              return FilterItem(item: provider.filterList[index]);
                             },
                             separatorBuilder: (context, index) {
                               return SizedBox(
                                 width: 8,
                               );
                             },
-                            itemCount: allFilterList.length),
+                            itemCount: provider.filterList.length),
                       )
                     ],
                   ),
@@ -56,7 +57,7 @@ class SearchScreen extends StatelessWidget {
   }
 }
 
-AppBar _appBar(BuildContext context) {
+AppBar _appBar(BuildContext context,SearchScreenProvider provider) {
   return AppBar(
     title: Text('Search'),
     centerTitle: true,
@@ -64,7 +65,9 @@ AppBar _appBar(BuildContext context) {
       Padding(
         padding: const EdgeInsets.only(right: 23),
         child: InkWell(
-          onTap: () {},
+          onTap: () {
+            
+          },
           child: Container(
             height: 35,
             width: 35,
@@ -107,7 +110,10 @@ Widget searchBar(BuildContext context, SearchScreenProvider provider) {
           width: 25,
         ),
         InkWell(
-          onTap: () {},
+          onTap: () {
+            provider.showBottomSheet(context, FilterContainer()
+            );
+          },
           child: Container(
             height: 38,
             width: 38,
