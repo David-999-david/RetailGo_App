@@ -4,6 +4,10 @@ class StripeModel {
   const StripeModel({required this.clientSecret});
 
   factory StripeModel.fromJson(Map<String,dynamic> json){
-    return StripeModel(clientSecret: json['client_secret']);
+    final secret = json['clientSecret'] as String?;
+    if (secret == null){
+      throw FormatException('Missing clientSecret');
+    }
+    return StripeModel(clientSecret: secret);
   }
 }

@@ -5,10 +5,9 @@ import 'package:retail/presentation/active_screen/active_screen.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  WidgetsFlutterBinding.ensureInitialized();
   await StorageUtils.getInstance();
   Stripe.publishableKey = 'pk_test_51RI0FERnFcSp5ud5btlcO4Aqid8E9IJup0Dmxm7L1YbrOZvPmyzv5W8zGbeoqyN55H0Pe1oiZBJH9IJf38hxBdB800sZFStbq2';
-  Stripe.instance.applySettings();
+   await Stripe.instance.applySettings();
   runApp(Main());
 }
 

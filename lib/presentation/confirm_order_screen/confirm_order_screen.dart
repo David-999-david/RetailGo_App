@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:retail/presentation/confirm_order_screen/notifier/confirm_order_notifier.dart';
+import 'package:retail/presentation/confirm_order_screen/notifier/stripe_payment_notifier.dart';
 import 'package:retail/presentation/confirm_order_screen/widget/cart_items_box.dart';
 import 'package:retail/presentation/confirm_order_screen/widget/location_box.dart';
 import 'package:retail/presentation/confirm_order_screen/widget/payment_choice_box.dart';
@@ -11,12 +12,16 @@ class ConfirmOrderScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
       create: (context) => ConfirmOrderNotifier()
         ..getAllcartList()
-        ..getAllAddress(),
-      child: Consumer<ConfirmOrderNotifier>(
-        builder: (context, provider, child) {
+        ..getAllAddress(),),
+        ChangeNotifierProvider(create: (context) => StripePaymentNotifier())
+      ],
+      child: Consumer2<ConfirmOrderNotifier,StripePaymentNotifier>(
+        builder: (context, provider,provider2, child) {
           return Scaffold(
             appBar: _appBar(context, provider),
             body: Padding(

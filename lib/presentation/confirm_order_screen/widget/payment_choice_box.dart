@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:retail/domain/enums/payment_method.dart';
 import 'package:retail/presentation/confirm_order_screen/notifier/confirm_order_notifier.dart';
+import 'package:retail/presentation/confirm_order_screen/notifier/stripe_payment_notifier.dart';
 import 'package:retail/presentation/confirm_order_screen/widget/place_order/order_success_sheet.dart';
 
 class PaymentChoiceBox extends StatelessWidget {
@@ -10,6 +11,7 @@ class PaymentChoiceBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<ConfirmOrderNotifier>();
+    final stripeProvider = context.watch<StripePaymentNotifier>();
 
     bool onSelectedOnline =
         provider.selectedMethod == PaymentMethod.onlinePayment;
@@ -83,8 +85,23 @@ class PaymentChoiceBox extends StatelessWidget {
           height: 25,
         ),
         ElevatedButton(
-            onPressed: () {
+            onPressed: () async {
               if (onSelectedOnline) {
+                final bool paid = await stripeProvider
+                    .makePayment(provider.totalPrice);
+                if (paid) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Payment successful....')));
+                  provider.placeOrder(
+                      context,
+                      ChangeNotifierProvider.value(
+                        value: provider,
+                        child: OrderSuccessScreen(),
+                      ));
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Payment failded....')));
+                }
               } else {
                 provider.placeOrder(
                     context,
