@@ -90,14 +90,15 @@ class PaymentChoiceBox extends StatelessWidget {
                 final bool paid = await stripeProvider
                     .makePayment(provider.totalPrice);
                 if (paid) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Payment successful....')));
+                  
                   provider.placeOrder(
                       context,
                       ChangeNotifierProvider.value(
                         value: provider,
                         child: OrderSuccessScreen(),
                       ));
+                      ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Payment successful....')));
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text('Payment failded....')));

@@ -10,7 +10,7 @@ class OrderItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isCompleted = order.status == 'Completed';
+    bool isCompleted = order.paymentStatus == 'Completed';
     return GestureDetector(
         onTap: () {
           AppNavigator.push(context, OrderDetailScreen(order: order));
@@ -26,12 +26,12 @@ class OrderItem extends StatelessWidget {
                 2: FlexColumnWidth(1.3)
               },
               children: [
-                _tableRow1('Order ID', order.orderId.toString(), order.status,
+                _tableRow1('Order ID', order.orderId.toString(), order.paymentStatus,
                     isCompleted),
                 _tableRow2('Date',
-                    '${order.createdAt.day.toString().padLeft(2, '0')}-${order.createdAt.month.toString().padLeft(2, '0')}-${order.createdAt.year}'),
+                    '${order.createAt.day.toString().padLeft(2, '0')}-${order.createAt.month.toString().padLeft(2, '0')}-${order.createAt.year}'),
                 _tableRow2('Payment Status', order.paymentStatus),
-                _tableRow2('item', order.itemsCount.toString()),
+                _tableRow2('item', order.itemCounts.toString()),
                 _tableRow2('Total Price', order.totalPrice.toStringAsFixed(2))
               ],
             )));

@@ -15,7 +15,7 @@ class ReceiverInfo extends StatelessWidget {
           _tableRow('Name', 'Mg Hein'),
           _tableRow('Adress', 'Mandalay,ChanMyaTharZi,   73*36*37'),
           _tableRow('Phone No', '+95 942064924'),
-          _tableRow('Payment Method', order.paymentMethod.name.toString())
+          _tableRow('Date', order.formatDate),
         ],
       ),
     );

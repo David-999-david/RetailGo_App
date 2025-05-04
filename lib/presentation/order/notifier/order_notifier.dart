@@ -17,7 +17,7 @@ class OrderNotifier extends ChangeNotifier {
       _ordersList = await GetAllOrdersUseCase().getAllOrders();
       _filterList = List.from(_ordersList);
       _statusList = _ordersList.isNotEmpty
-          ? _ordersList.map((order) => order.status).toSet().toList()
+          ? _ordersList.map((order) => order.orderStatus).toSet().toList()
           : [];
       _statusList.insert(0, 'All');
       notifyListeners();
@@ -33,7 +33,7 @@ class OrderNotifier extends ChangeNotifier {
       notifyListeners();
     } else {
       _filterList =
-          _ordersList.where((order) => order.status == status).toList();
+          _ordersList.where((order) => order.orderStatus == status).toList();
       notifyListeners();
     }
   }

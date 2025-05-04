@@ -15,8 +15,8 @@ class OrderSummary extends StatelessWidget {
           child: Table(
             columnWidths: {0: FlexColumnWidth(2.5), 1: FlexColumnWidth(2)},
             children: [
-              _tableRow('product name', order.productName),
-              _tableRow('price', order.price.toStringAsFixed(2)),
+              _tableRow('product name', order.sku),
+              _tableRow('price', order.orderPrice.toStringAsFixed(2)),
               _tableRow('quantity', order.quantity.toString())
             ],
           ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:retail/data/order/model/order_model.dart';
+import 'package:retail/presentation/confirm_order_screen/notifier/confirm_order_notifier.dart';
 
 class OrderItemTable extends StatelessWidget {
   const OrderItemTable(
@@ -10,6 +12,7 @@ class OrderItemTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider = context.watch<ConfirmOrderNotifier>();
     return Column(
       children: [
         SizedBox(
@@ -24,7 +27,7 @@ class OrderItemTable extends StatelessWidget {
           ),
         ),
         Divider(),
-        _price(context, totalPrice)
+        _price(context, provider.totalPrice)
       ],
     );
   }
@@ -41,7 +44,7 @@ TableRow _itemRow(BuildContext context, OrderItemModel item) {
   return TableRow(children: [
     Padding(
       padding: const EdgeInsets.symmetric(vertical: 6),
-      child: Text(item.productName,
+      child: Text(item.sku,
           overflow: TextOverflow.ellipsis,
           maxLines: 1,
           style: TextStyle(
@@ -49,7 +52,7 @@ TableRow _itemRow(BuildContext context, OrderItemModel item) {
     ),
     Padding(
       padding: const EdgeInsets.symmetric(vertical: 6),
-      child: Text('\$${item.price.toStringAsFixed(2)}',
+      child: Text('\$${item.orderPrice.toStringAsFixed(2)}',
           textAlign: TextAlign.right,
           style: TextStyle(
               fontSize: 18, color: Colors.black, fontWeight: FontWeight.w500)),
