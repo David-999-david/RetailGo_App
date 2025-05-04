@@ -18,7 +18,7 @@ class OrderScreen extends StatelessWidget {
           return Scaffold(
             appBar: _appBar(context),
             body: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               child: SingleChildScrollView(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -43,7 +43,7 @@ class OrderScreen extends StatelessWidget {
                       height: 5,
                     ),
                     SizedBox(
-                      width: 370,
+                      width: 380,
                       child: ListView.separated(
                           scrollDirection: Axis.vertical,
                           shrinkWrap: true,

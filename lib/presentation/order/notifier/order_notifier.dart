@@ -18,8 +18,8 @@ class OrderNotifier extends ChangeNotifier {
       _ordersList = await GetAllOrdersUseCase().getAllOrders();
       
       _ordersList.sort((a,b){
-        final da = DateFormat.yMMM().parse(a.formatDate);
-        final db = DateFormat.yMMM().parse(b.formatDate);
+        final da = DateFormat.yMMMM().parse(a.formatDate);
+        final db = DateFormat.yMMMM().parse(b.formatDate);
         return db.compareTo(da);
       });
       _filterList = List.from(_ordersList);

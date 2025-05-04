@@ -6,7 +6,7 @@ import 'package:retail/presentation/order/notifier/order_notifier.dart';
 import 'package:retail/presentation/order_detail/order_detail_screen.dart';
 
 class OrderItem extends StatelessWidget {
-  const OrderItem({super.key, required this.order,required this.showDate});
+  const OrderItem({super.key, required this.order, required this.showDate});
 
   final OrderModel order;
   final bool showDate;
@@ -19,26 +19,32 @@ class OrderItem extends StatelessWidget {
           AppNavigator.push(context, OrderDetailScreen(order: order));
         },
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (showDate) Text(order.formatDate),
+            if (showDate)
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 2),
+                child: Text(
+                  order.formatDate,
+                  style: TextStyle(fontSize: 19),
+                ),
+              ),
             Container(
-                padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+                padding:
+                    EdgeInsets.only(left: 6, right: 6, top: 10, bottom: 10),
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(13), color: Colors.white),
+                    borderRadius: BorderRadius.circular(13),
+                    color: Colors.white),
                 child: Table(
                   columnWidths: {
-                    0: FlexColumnWidth(1.8),
-                    1: FlexColumnWidth(1.2),
-                    2: FlexColumnWidth(1.3)
+                    0: FlexColumnWidth(2),
+                    1: FlexColumnWidth(1),
                   },
                   children: [
-                    _tableRow1('Order ID', order.orderId.toString(), order.paymentStatus,
-                        provider),
-                    _tableRow2('Date',
-                        '${order.createAt.day.toString().padLeft(2, '0')}-${order.createAt.month.toString().padLeft(2, '0')}-${order.createAt.year}'),
-                    _tableRow2('Payment Status', order.paymentStatus),
-                    _tableRow2('item', order.itemCounts.toString()),
-                    _tableRow2('Total Price', order.totalPrice.toStringAsFixed(2))
+                    _tableRow(order, provider),
+                    _tableRow1('Order #${order.orderId}'),
+                    _tableRow2(order.formateDAte2),
+                    _tableRow2(order.address)
                   ],
                 )),
           ],
@@ -46,55 +52,57 @@ class OrderItem extends StatelessWidget {
   }
 }
 
-TableRow _tableRow1(
-    String label, String value, String orderStatus, OrderNotifier provider) {
+TableRow _tableRow(OrderModel order, OrderNotifier provider) {
   return TableRow(children: [
-    Padding(
-      padding: EdgeInsets.symmetric(vertical: 7),
-      child: Text(
-        label,
-        style: TextStyle(
-            fontSize: 15, color: Colors.grey[600], fontWeight: FontWeight.w600),
+    Align(
+      alignment: Alignment.centerLeft,
+      child: Chip(
+        label: Text(
+          order.paymentStatus,
+        ),
+        labelPadding: EdgeInsets.zero,
+        labelStyle: TextStyle(
+          fontSize: 14,
+        ),
+        padding: EdgeInsets.symmetric(horizontal: 5),
+        backgroundColor: provider.statusColor(order.paymentStatus),
       ),
     ),
-    Padding(
-      padding: EdgeInsets.symmetric(vertical: 7),
-      child: Text(
-        value,
-        style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
-      ),
-    ),
-    Padding(
-      padding: EdgeInsets.symmetric(vertical: 7),
-      child: Text(
-        orderStatus,
-        textAlign: TextAlign.right,
-        style: TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.w500,
-            color: provider.statusColor(orderStatus)),
-      ),
-    )
+    Align(
+        alignment: Alignment.centerRight,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 12, right: 10),
+          child: Text(
+            '\$${order.totalPrice.toStringAsFixed(2)}',
+            style: TextStyle(
+                fontSize: 16, color: Colors.black, fontWeight: FontWeight.w400),
+          ),
+        ))
   ]);
 }
 
-TableRow _tableRow2(String label, String value) {
+TableRow _tableRow1(String value) {
   return TableRow(children: [
     Padding(
-      padding: EdgeInsets.symmetric(vertical: 7),
-      child: Text(
-        label,
-        style: TextStyle(
-            fontSize: 15, color: Colors.grey[600], fontWeight: FontWeight.w600),
-      ),
-    ),
-    Padding(
-      padding: EdgeInsets.symmetric(vertical: 7),
+      padding: const EdgeInsets.only(left: 5),
       child: Text(
         value,
-        style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+        style: TextStyle(
+            fontSize: 18, color: Colors.black, fontWeight: FontWeight.w400),
       ),
     ),
-    SizedBox()
+    SizedBox.shrink()
+  ]);
+}
+
+TableRow _tableRow2(String value) {
+  return TableRow(children: [
+    Padding(
+      padding: const EdgeInsets.only(left: 5,top: 3),
+      child: Text(value,
+      overflow: TextOverflow.ellipsis,
+      style: TextStyle(color: Colors.black,fontSize: 15),),
+    ),
+    SizedBox.shrink()
   ]);
 }
