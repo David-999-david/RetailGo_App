@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:retail/data/order/model/order_model.dart';
 import 'package:retail/domain/order/usecase/order_usecase.dart';
 
@@ -15,6 +16,12 @@ class OrderNotifier extends ChangeNotifier {
   void getAllOrders() async {
     try {
       _ordersList = await GetAllOrdersUseCase().getAllOrders();
+      
+      _ordersList.sort((a,b){
+        final da = DateFormat.yMMM().parse(a.formatDate);
+        final db = DateFormat.yMMM().parse(b.formatDate);
+        return db.compareTo(da);
+      });
       _filterList = List.from(_ordersList);
       _statusList = _ordersList.isNotEmpty
           ? _ordersList.map((order) => order.orderStatus).toSet().toList()
@@ -35,6 +42,17 @@ class OrderNotifier extends ChangeNotifier {
       _filterList =
           _ordersList.where((order) => order.orderStatus == status).toList();
       notifyListeners();
+    }
+  }
+
+  Color statusColor(String paymentStatus){
+    switch (paymentStatus){
+      case 'Processing' : return Colors.amber.shade100;
+      case 'Paid' : return Colors.lightBlue.shade100 ;
+      case 'Unpaid' : return Colors.lightGreen.shade100 ;
+      case 'Pending' : return Colors.redAccent.shade100 ;
+      case 'Refunded' : return Colors.limeAccent.shade100 ;
+      default : return Colors.grey.shade100;
     }
   }
 }

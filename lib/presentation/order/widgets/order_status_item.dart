@@ -9,32 +9,20 @@ class OrderStatusItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<OrderNotifier>(
-      builder: (context, provider, child) {
-        var isSelected = provider.selectedStatus == status;
-        return Padding(
-          padding: EdgeInsets.all(8),
-          child: InkWell(
-            onTap: () {
-              provider.filterByStatus(status);
-            },
-            child: Container(
-              height: 30,
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: isSelected ? Colors.blue : Colors.grey[200]),
-              child: Text(
-                status,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 15,
-                    color: isSelected ? Colors.white : Colors.black),
-              ),
-            ),
-          ),
-        );
+    final provider = context.watch<OrderNotifier>();
+    final bool activeStatu = status == provider.selectedStatus;
+    return ChoiceChip(
+      showCheckmark: false,
+      label: Text(status),
+      labelStyle: TextStyle(
+        color: activeStatu ? Colors.white : Colors.black
+      ),
+      selected: status == provider.selectedStatus,
+      onSelected: (value) {
+        provider.filterByStatus(status);
       },
-    );
+      selectedColor: Color(0xFF00BFA6),
+      backgroundColor: Colors.white,
+      );
   }
 }

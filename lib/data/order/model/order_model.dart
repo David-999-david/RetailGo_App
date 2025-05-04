@@ -116,7 +116,7 @@ class OrderModel {
       required this.address,
       required this.itemCounts});
 
-  String get formatDate => DateFormat.MMM().format(createAt);
+  String get formatDate => DateFormat.yMMM().format(createAt);
 
   factory OrderModel.fromJson(Map<String, dynamic> json) {
     List<OrderItemModel> items = (json['items'] as List ?? [])

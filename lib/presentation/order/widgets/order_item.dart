@@ -1,45 +1,53 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:retail/common/helper/app_navigation.dart';
 import 'package:retail/data/order/model/order_model.dart';
+import 'package:retail/presentation/order/notifier/order_notifier.dart';
 import 'package:retail/presentation/order_detail/order_detail_screen.dart';
 
 class OrderItem extends StatelessWidget {
-  const OrderItem({super.key, required this.order});
+  const OrderItem({super.key, required this.order,required this.showDate});
 
   final OrderModel order;
+  final bool showDate;
 
   @override
   Widget build(BuildContext context) {
-    bool isCompleted = order.paymentStatus == 'Completed';
+    final provider = context.watch<OrderNotifier>();
     return GestureDetector(
         onTap: () {
           AppNavigator.push(context, OrderDetailScreen(order: order));
         },
-        child: Container(
-            padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(13), color: Colors.white),
-            child: Table(
-              columnWidths: {
-                0: FlexColumnWidth(1.8),
-                1: FlexColumnWidth(1.2),
-                2: FlexColumnWidth(1.3)
-              },
-              children: [
-                _tableRow1('Order ID', order.orderId.toString(), order.paymentStatus,
-                    isCompleted),
-                _tableRow2('Date',
-                    '${order.createAt.day.toString().padLeft(2, '0')}-${order.createAt.month.toString().padLeft(2, '0')}-${order.createAt.year}'),
-                _tableRow2('Payment Status', order.paymentStatus),
-                _tableRow2('item', order.itemCounts.toString()),
-                _tableRow2('Total Price', order.totalPrice.toStringAsFixed(2))
-              ],
-            )));
+        child: Column(
+          children: [
+            if (showDate) Text(order.formatDate),
+            Container(
+                padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(13), color: Colors.white),
+                child: Table(
+                  columnWidths: {
+                    0: FlexColumnWidth(1.8),
+                    1: FlexColumnWidth(1.2),
+                    2: FlexColumnWidth(1.3)
+                  },
+                  children: [
+                    _tableRow1('Order ID', order.orderId.toString(), order.paymentStatus,
+                        provider),
+                    _tableRow2('Date',
+                        '${order.createAt.day.toString().padLeft(2, '0')}-${order.createAt.month.toString().padLeft(2, '0')}-${order.createAt.year}'),
+                    _tableRow2('Payment Status', order.paymentStatus),
+                    _tableRow2('item', order.itemCounts.toString()),
+                    _tableRow2('Total Price', order.totalPrice.toStringAsFixed(2))
+                  ],
+                )),
+          ],
+        ));
   }
 }
 
 TableRow _tableRow1(
-    String label, String value, String orderStatus, bool isCompleted) {
+    String label, String value, String orderStatus, OrderNotifier provider) {
   return TableRow(children: [
     Padding(
       padding: EdgeInsets.symmetric(vertical: 7),
@@ -64,7 +72,7 @@ TableRow _tableRow1(
         style: TextStyle(
             fontSize: 15,
             fontWeight: FontWeight.w500,
-            color: isCompleted ? Colors.blue : Colors.red),
+            color: provider.statusColor(orderStatus)),
       ),
     )
   ]);

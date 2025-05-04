@@ -14,10 +14,11 @@ class OrderScreen extends StatelessWidget {
       create: (context) => OrderNotifier()..getAllOrders(),
       child: Consumer<OrderNotifier>(
         builder: (context, provider, child) {
+          final orders = provider.ordersList;
           return Scaffold(
             appBar: _appBar(context),
             body: Padding(
-              padding: EdgeInsets.all(10),
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: SingleChildScrollView(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -33,7 +34,7 @@ class OrderScreen extends StatelessWidget {
                           },
                           separatorBuilder: (context, index) {
                             return SizedBox(
-                              width: 1,
+                              width: 7,
                             );
                           },
                           itemCount: provider.statusList.length),
@@ -48,14 +49,22 @@ class OrderScreen extends StatelessWidget {
                           shrinkWrap: true,
                           physics: NeverScrollableScrollPhysics(),
                           itemBuilder: (context, index) {
-                            return OrderItem(order: provider.ordersList[index]);
+                            final order = orders[index];
+                            final currentDate = order.formatDate;
+                            final lastDate =
+                                index > 0 ? orders[index - 1].formatDate : '';
+                            final bool showDate = currentDate != lastDate;
+                            return OrderItem(
+                              order: order,
+                              showDate: showDate,
+                            );
                           },
                           separatorBuilder: (context, index) {
                             return SizedBox(
                               height: 10,
                             );
                           },
-                          itemCount: provider.ordersList.length),
+                          itemCount: orders.length),
                     )
                   ],
                 ),
@@ -74,8 +83,9 @@ AppBar _appBar(BuildContext context) {
     backgroundColor: Colors.white,
     centerTitle: true,
     title: Text(
-      'My Orders',
-      style: TextStyle(fontSize: 20, color: Colors.black),
+      'Order History',
+      style: TextStyle(
+          fontSize: 26, color: Colors.black, fontWeight: FontWeight.w500),
     ),
   );
 }
