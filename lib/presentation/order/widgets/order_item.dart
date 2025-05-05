@@ -16,14 +16,17 @@ class OrderItem extends StatelessWidget {
     final provider = context.watch<OrderNotifier>();
     return GestureDetector(
         onTap: () {
-          AppNavigator.push(context, OrderDetailScreen(order: order));
+          AppNavigator.push(context, ChangeNotifierProvider.value(
+            value: Provider.of<OrderNotifier>(context,listen: false),
+            child: OrderDetailScreen(order: order),
+            ));
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (showDate)
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 2),
+                padding: const EdgeInsets.symmetric(vertical: 1),
                 child: Text(
                   order.formatDate,
                   style: TextStyle(fontSize: 19),
@@ -31,7 +34,7 @@ class OrderItem extends StatelessWidget {
               ),
             Container(
                 padding:
-                    EdgeInsets.only(left: 6, right: 6, top: 10, bottom: 10),
+                    EdgeInsets.only(left: 6, right: 6, top: 10, bottom: 6),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(13),
                     color: Colors.white),
@@ -56,16 +59,19 @@ TableRow _tableRow(OrderModel order, OrderNotifier provider) {
   return TableRow(children: [
     Align(
       alignment: Alignment.centerLeft,
-      child: Chip(
-        label: Text(
-          order.paymentStatus,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 3),
+        child: Chip(
+          label: Text(
+            order.paymentStatus,
+          ),
+          labelPadding: EdgeInsets.zero,
+          labelStyle: TextStyle(
+            fontSize: 14,
+          ),
+          padding: EdgeInsets.symmetric(horizontal: 5),
+          backgroundColor: provider.statusColor(order.paymentStatus),
         ),
-        labelPadding: EdgeInsets.zero,
-        labelStyle: TextStyle(
-          fontSize: 14,
-        ),
-        padding: EdgeInsets.symmetric(horizontal: 5),
-        backgroundColor: provider.statusColor(order.paymentStatus),
       ),
     ),
     Align(
@@ -84,7 +90,7 @@ TableRow _tableRow(OrderModel order, OrderNotifier provider) {
 TableRow _tableRow1(String value) {
   return TableRow(children: [
     Padding(
-      padding: const EdgeInsets.only(left: 5),
+      padding: const EdgeInsets.only(left: 8,bottom: 4,top: 3),
       child: Text(
         value,
         style: TextStyle(
@@ -98,7 +104,7 @@ TableRow _tableRow1(String value) {
 TableRow _tableRow2(String value) {
   return TableRow(children: [
     Padding(
-      padding: const EdgeInsets.only(left: 5,top: 3),
+      padding: const EdgeInsets.only(left: 8,top: 3,bottom: 5),
       child: Text(value,
       overflow: TextOverflow.ellipsis,
       style: TextStyle(color: Colors.black,fontSize: 15),),

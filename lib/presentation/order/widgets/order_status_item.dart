@@ -14,14 +14,15 @@ class OrderStatusItem extends StatelessWidget {
     return ChoiceChip(
       showCheckmark: false,
       label: Text(status),
+      labelPadding: EdgeInsets.symmetric(horizontal: 5),
       labelStyle: TextStyle(
-        color: activeStatu ? Colors.white : Colors.black
+        color: activeStatu ? Colors.black : Colors.black
       ),
       selected: status == provider.selectedStatus,
       onSelected: (value) {
         provider.filterByStatus(status);
       },
-      selectedColor: Color(0xFF00BFA6),
+      selectedColor: Colors.lightBlue.shade200,
       backgroundColor: Colors.white,
       );
   }

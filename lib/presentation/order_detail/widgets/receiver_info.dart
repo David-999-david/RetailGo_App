@@ -8,36 +8,43 @@ class ReceiverInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      child: Table(
-        columnWidths: {0: FlexColumnWidth(2.5), 1: FlexColumnWidth(2)},
-        children: [
-          _tableRow('Name', 'Mg Hein'),
-          _tableRow('Adress', 'Mandalay,ChanMyaTharZi,   73*36*37'),
-          _tableRow('Phone No', '+95 942064924'),
-          _tableRow('Date', order.formatDate),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Receiver Information',
+          style: TextStyle(
+              fontSize: 21, color: Colors.black, fontWeight: FontWeight.w500),
+        ),
+        SizedBox(
+          height: 5,
+        ),
+        Text(
+          'Mg Hein',
+          style: TextStyle(
+              fontSize: 18, fontWeight: FontWeight.w400, color: Colors.black),
+        ),
+        SizedBox(
+          height: 5,
+        ),
+        Text(
+          '+959 843409349',
+          softWrap: true,
+          maxLines: 2,
+          style: TextStyle(
+              fontSize: 15, fontWeight: FontWeight.w400, color: Colors.black),
+        ),
+        SizedBox(
+          height: 5,
+        ),
+        Text(
+          order.address,
+          softWrap: true,
+          maxLines: 2,
+          style: TextStyle(
+              fontSize: 15, fontWeight: FontWeight.w400, color: Colors.black),
+        ),
+      ],
     );
   }
-}
-
-TableRow _tableRow(String label, String value) {
-  return TableRow(children: [
-    Padding(
-      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 7),
-      child: Text(
-        label,
-        style: TextStyle(
-            fontSize: 15, color: Colors.grey[600], fontWeight: FontWeight.w600),
-      ),
-    ),
-    Padding(
-      padding: EdgeInsets.symmetric(vertical: 8),
-      child: Text(
-        value,
-        style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
-      ),
-    )
-  ]);
 }

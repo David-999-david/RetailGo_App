@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:retail/data/order/model/order_model.dart';
 
 class OrderSummary extends StatelessWidget {
-  const OrderSummary({super.key, required this.order});
+  const OrderSummary({super.key, required this.orderItems});
 
-  final OrderItemModel order;
+  final List<OrderItemModel> orderItems;
 
   @override
   Widget build(BuildContext context) {
@@ -13,44 +13,64 @@ class OrderSummary extends StatelessWidget {
         SizedBox(
           width: double.infinity,
           child: Table(
-            columnWidths: {0: FlexColumnWidth(2.5), 1: FlexColumnWidth(2)},
-            children: [
-              _tableRow('sku', order.sku),
-              _tableRow('price', order.orderPrice.toStringAsFixed(2)),
-              _tableRow('quantity', order.quantity.toString())
-            ],
+            columnWidths: {
+              0: FlexColumnWidth(1),
+              1: FlexColumnWidth(1.6),
+              2: FlexColumnWidth(1)
+            },
+            children: [for (var item in orderItems) _tableRow(context, item)],
           ),
         ),
-        SizedBox(
-          height: 15,
-        ),
-        Divider(
-          height: 1,
-          color: Colors.black,
-        ),
-        SizedBox(
-          height: 15,
-        )
       ],
     );
   }
 }
 
-TableRow _tableRow(String label, String value) {
+TableRow _tableRow(BuildContext context, OrderItemModel item) {
   return TableRow(children: [
     Padding(
-      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 7),
-      child: Text(
-        label,
-        style: TextStyle(
-            fontSize: 15, color: Colors.grey[600], fontWeight: FontWeight.w600),
+      padding: const EdgeInsets.only(top: 8,bottom: 8,right: 20),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(10),
+        child: Image.network(
+          item.imageUrl,
+          fit: BoxFit.cover,
+          height: 70,
+          width: 30,
+        ),
       ),
     ),
     Padding(
-      padding: EdgeInsets.symmetric(vertical: 8),
+      padding: const EdgeInsets.only(top: 8,bottom: 8,left: 2),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            item.sku,
+            style: TextStyle(
+                fontSize: 19, color: Colors.black, fontWeight: FontWeight.w500),
+          ),
+          SizedBox(height: 5,),
+          Text(
+            'Qty: ${item.quantity}',
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.black,
+              fontWeight: FontWeight.w400
+            ),
+          ),
+        ],
+      ),
+    ),
+    Padding(
+      padding: const EdgeInsets.only(top: 4,bottom: 8),
       child: Text(
-        value,
-        style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+        '\$${item.orderPrice}',
+        textAlign: TextAlign.right,
+        style: TextStyle(
+            fontSize: 18, color: Colors.black, fontWeight: FontWeight.w500),
       ),
     )
   ]);

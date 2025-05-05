@@ -153,11 +153,11 @@ class OrderModel {
 }
 
 class OrderItemModel {
-  final int variantId;
+  final String variantId;
   final int quantity;
   final double orderPrice;
   final String sku;
-  final String? imageUrl;
+  final String imageUrl;
 
   const OrderItemModel(
       {required this.variantId,

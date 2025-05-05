@@ -48,10 +48,10 @@ class OrderNotifier extends ChangeNotifier {
   Color statusColor(String paymentStatus){
     switch (paymentStatus){
       case 'Processing' : return Colors.amber.shade100;
-      case 'Paid' : return Colors.lightBlue.shade100 ;
-      case 'Unpaid' : return Colors.lightGreen.shade100 ;
-      case 'Pending' : return Colors.redAccent.shade100 ;
-      case 'Refunded' : return Colors.limeAccent.shade100 ;
+      case 'Paid' : return Colors.lightGreenAccent.shade100 ;
+      case 'Unpaid' : return Colors.red.shade100 ;
+      case 'Pending' : return Colors.orange.shade100 ;
+      case 'Refunded' : return Colors.purple.shade100 ;
       default : return Colors.grey.shade100;
     }
   }
