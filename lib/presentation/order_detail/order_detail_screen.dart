@@ -146,12 +146,17 @@ class OrderDetailScreen extends StatelessWidget {
 AppBar _appBar(BuildContext context) {
   return AppBar(
     backgroundColor: Colors.white,
+    automaticallyImplyLeading: false,
     centerTitle: true,
     title: Text(
       'Order Detail',
       style: TextStyle(
           fontSize: 26, color: Colors.black, fontWeight: FontWeight.w500),
     ),
+    leading: IconButton(onPressed: (){
+      AppNavigator.push(context, ActiveScreen(pageIndex: 2,));
+
+    }, icon: Icon(Icons.arrow_back)),
   );
 }
 

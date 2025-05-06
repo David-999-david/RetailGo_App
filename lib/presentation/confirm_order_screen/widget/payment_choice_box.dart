@@ -123,7 +123,9 @@ class PaymentChoiceBox extends StatelessWidget {
                 textStyle: TextStyle(fontSize: 20)),
             child: !onSelectedOnline
                 ? Text('Place Order')
-                : Text('Make Payment \$${provider.totalPrice}'))
+                : Text('Make Payment \$${provider.totalPrice.toStringAsFixed(2)}',
+                textAlign: TextAlign.center,
+                ))
       ],
     );
   }

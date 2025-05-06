@@ -4,6 +4,7 @@ import 'package:retail/common/helper/app_navigation.dart';
 import 'package:retail/presentation/confirm_order_screen/notifier/confirm_order_notifier.dart';
 import 'package:retail/presentation/confirm_order_screen/widget/place_order/order_item_box.dart';
 import 'package:retail/presentation/home/home_screen.dart';
+import 'package:retail/presentation/order/notifier/order_notifier.dart';
 import 'package:retail/presentation/order_detail/order_detail_screen.dart';
 
 class OrderSuccessScreen extends StatelessWidget {
@@ -54,7 +55,11 @@ class OrderSuccessScreen extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10))),
               onPressed: () {
-                AppNavigator.push(context, OrderDetailScreen(order: provider.orderList.first));
+                AppNavigator.push(context, 
+                ChangeNotifierProvider.value(value: OrderNotifier()..getAllOrders(),
+                child: OrderDetailScreen(order: provider.orderList.first),
+                )
+                );
               },
               child: Text(
                 'View My Orders',
