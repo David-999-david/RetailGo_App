@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:retail/common/helper/app_navigation.dart';
+import 'package:retail/presentation/active_screen/active_screen.dart';
 import 'package:retail/presentation/confirm_order_screen/notifier/confirm_order_notifier.dart';
 import 'package:retail/presentation/confirm_order_screen/widget/place_order/order_item_box.dart';
 import 'package:retail/presentation/home/home_screen.dart';
@@ -8,7 +9,9 @@ import 'package:retail/presentation/order/notifier/order_notifier.dart';
 import 'package:retail/presentation/order_detail/order_detail_screen.dart';
 
 class OrderSuccessScreen extends StatelessWidget {
-  const OrderSuccessScreen({super.key});
+  const OrderSuccessScreen({super.key,required this.totalAmount});
+
+  final double totalAmount;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +19,7 @@ class OrderSuccessScreen extends StatelessWidget {
 
     return Container(
       width: double.infinity,
-      height: MediaQuery.of(context).size.height * 0.7,
+      height: MediaQuery.of(context).size.height * 0.75,
       padding: EdgeInsets.only(left: 20, right: 20, top: 25),
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
       child: Column(
@@ -42,7 +45,7 @@ class OrderSuccessScreen extends StatelessWidget {
           SizedBox(
             height: 15,
           ),
-          OrderItemBox(),
+          OrderItemBox(totalAmount: totalAmount,),
           SizedBox(
             height: 18,
           ),
@@ -70,7 +73,7 @@ class OrderSuccessScreen extends StatelessWidget {
           ),
           ElevatedButton(
               onPressed: () {
-                AppNavigator.push(context, HomeScreen());
+                AppNavigator.push(context, ActiveScreen(pageIndex:0,));
               },
               style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,

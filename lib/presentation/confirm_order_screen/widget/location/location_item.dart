@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:retail/common/helper/app_navigation.dart';
 import 'package:retail/data/address/model/address_model.dart';
 import 'package:retail/presentation/confirm_order_screen/notifier/confirm_order_notifier.dart';
 
@@ -17,10 +18,11 @@ class LocationItem extends StatelessWidget {
     return InkWell(
       onTap: () {
         readProvider.onSelectAddress(context,address);
+        AppNavigator.pop(context);
       },
       child: Container(
         width: double.infinity,
-        padding: EdgeInsets.symmetric(horizontal: 14, vertical: 18),
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
         decoration: BoxDecoration(
             color: isSelected ? Colors.blue.shade600 : Colors.white,
             border: Border.all(color: Color.fromARGB(255, 184, 184, 184)),
@@ -50,7 +52,7 @@ class LocationItem extends StatelessWidget {
                     address.addressLine,
                     style: TextStyle(
                       overflow: TextOverflow.ellipsis,
-                        fontSize: 19,
+                        fontSize: 17,
                         fontWeight: FontWeight.w600,
                         color: isSelected ? Colors.white : Colors.black),
                   ),
@@ -61,7 +63,7 @@ class LocationItem extends StatelessWidget {
                     '${address.city},${address.state},${address.country}',
                     style: TextStyle(
                       overflow: TextOverflow.ellipsis,
-                        fontSize: 17,
+                        fontSize: 16,
                         fontWeight: FontWeight.w500,
                         color: isSelected ? Colors.white : Colors.black),
                   ),
@@ -71,7 +73,7 @@ class LocationItem extends StatelessWidget {
                   Text(
                     'Postal Code : ${address.postalCode}',
                     style: TextStyle(
-                        fontSize: 15,
+                        fontSize: 14,
                         fontWeight: FontWeight.w400,
                         color: isSelected ? Colors.white : Colors.black),
                   )

@@ -3,10 +3,10 @@ import 'package:provider/provider.dart';
 import 'package:retail/data/cart/model/cart_model.dart';
 import 'package:retail/presentation/cart/notifier/cart_list_notifier.dart';
 
-class CartItem extends StatelessWidget {
-  const CartItem({super.key, required this.cart});
+class CartItemShow extends StatelessWidget {
+  const CartItemShow({super.key, required this.cart});
 
-  final CartModel cart;
+  final CartItem cart;
 
   @override
   Widget build(BuildContext context) {
@@ -33,15 +33,15 @@ class CartItem extends StatelessWidget {
   }
 }
 
-Widget productImage(BuildContext context, CartModel cart) {
+Widget productImage(BuildContext context, CartItem cart) {
   return Image.network(
-    cart.featuredImage,
+    cart.imageUrl,
     height: 100,
   );
 }
 
 Widget productDetils(
-    BuildContext context, CartModel cart, CartListNotifier notifier) {
+    BuildContext context, CartItem cart, CartListNotifier notifier) {
   return Expanded(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,10 +61,10 @@ Widget productDetils(
   );
 }
 
-Widget productName(BuildContext context, CartModel cart) {
+Widget productName(BuildContext context, CartItem cart) {
   return Expanded(
     child: Text(
-      cart.name,
+      cart.title,
       style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
     ),
   );
@@ -88,7 +88,7 @@ Row cartItemDate() {
 }
 
 Widget cartQuanityController(
-    BuildContext context, CartListNotifier notifier, CartModel cart) {
+    BuildContext context, CartListNotifier notifier, CartItem cart) {
   return Row(
     children: [
       Container(
@@ -105,7 +105,7 @@ Widget cartQuanityController(
               onTap: () => notifier.qtyChange(cart, 0),
             ),
             const SizedBox(width: 10),
-            Text(cart.qty.toString()),
+            Text(cart.quantity.toString()),
             const SizedBox(width: 10),
             _buildQuantityButton(
               Icons.add,

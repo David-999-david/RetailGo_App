@@ -25,7 +25,7 @@ class CartListPage extends StatelessWidget {
           itemCount: notifier.cartList.length,
           itemBuilder: (context, index) {
             final cart = notifier.cartList[index];
-            return CartItem(cart: cart);
+            return CartItemShow(cart: cart);
           },
         ),
       ),

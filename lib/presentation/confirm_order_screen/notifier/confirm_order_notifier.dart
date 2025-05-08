@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:retail/data/address/model/address_model.dart';
 import 'package:retail/data/cart/model/cart_model.dart';
 import 'package:retail/data/order/model/order_model.dart';
@@ -10,8 +9,8 @@ import 'package:retail/domain/enums/payment_method.dart';
 import 'package:retail/domain/order/usecase/order_usecase.dart';
 
 class ConfirmOrderNotifier extends ChangeNotifier {
-  List<CartModel> _cartList = [];
-  List<CartModel> get cartList => _cartList;
+  List<CartItem> _cartList = [];
+  List<CartItem> get cartList => _cartList;
   void getAllcartList() async {
     try {
       _cartList = await CartUsecase().getAllCart();
@@ -22,14 +21,14 @@ class ConfirmOrderNotifier extends ChangeNotifier {
   }
 
   double get subTotal => _cartList.fold(0.0, (sum, item) {
-        final price = double.tryParse(item.basePrice) ?? 0.0;
-        return sum + (price * item.qty);
+        final price = item.price ?? 0.0;
+        return sum + (price * item.quantity);
       });
-  double get discountTotal => _cartList.fold(0.0, (sum, item) {
-        final discountAmount = double.tryParse(item.discount) ?? 0.0;
-        return sum + (discountAmount * item.qty);
-      });
-  double get totalPrice => subTotal - discountTotal;
+  // double get discountTotal => _cartList.fold(0.0, (sum, item) {
+  //       final discountAmount = double.tryParse(item.discount) ?? 0.0;
+  //       return sum + (discountAmount * item.qty);
+  //     });
+  // double get totalPrice => subTotal - discountTotal;
 
   PaymentMethod _selectedMethod = PaymentMethod.cashOnDelivery;
   PaymentMethod get selectedMethod => _selectedMethod;

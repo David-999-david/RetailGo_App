@@ -4,7 +4,9 @@ import 'package:retail/presentation/confirm_order_screen/notifier/confirm_order_
 import 'package:retail/presentation/confirm_order_screen/widget/place_order/order_item_table.dart';
 
 class OrderItemBox extends StatelessWidget {
-  const OrderItemBox({super.key});
+  const OrderItemBox({super.key,required this.totalAmount});
+
+  final double totalAmount;
 
   @override
   Widget build(BuildContext context) {

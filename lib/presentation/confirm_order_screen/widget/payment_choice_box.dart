@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:retail/domain/enums/payment_method.dart';
+import 'package:retail/presentation/cart/notifier/cart_list_notifier.dart';
 import 'package:retail/presentation/confirm_order_screen/notifier/confirm_order_notifier.dart';
-import 'package:retail/presentation/confirm_order_screen/notifier/stripe_payment_notifier.dart';
 import 'package:retail/presentation/confirm_order_screen/widget/place_order/order_success_sheet.dart';
 
 class PaymentChoiceBox extends StatelessWidget {
@@ -11,11 +11,13 @@ class PaymentChoiceBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<ConfirmOrderNotifier>();
-    final stripeProvider = context.watch<StripePaymentNotifier>();
+    final cart = context.watch<CartListNotifier>();
+    // final stripeProvider = context.watch<StripePaymentNotifier>();
 
     bool onSelectedOnline =
         provider.selectedMethod == PaymentMethod.onlinePayment;
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
           width: double.infinity,
@@ -25,7 +27,7 @@ class PaymentChoiceBox extends StatelessWidget {
               border: Border.all(color: Color.fromARGB(255, 184, 184, 184)),
               borderRadius: BorderRadius.circular(10)),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
             child: SegmentedButton(
               multiSelectionEnabled: false,
               showSelectedIcon: false,
@@ -36,28 +38,42 @@ class PaymentChoiceBox extends StatelessWidget {
               segments: [
                 ButtonSegment(
                     value: PaymentMethod.cashOnDelivery,
-                    label: Text(
-                      'Cash On Delivery',
-                      style: TextStyle(fontSize: 15),
-                      textAlign: TextAlign.center,
+                    label: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.local_shipping_outlined,
+                        size: 33,
+                        color: onSelectedOnline ? Colors.black : Colors.white,
+                        ),SizedBox(width: 17,),
+                        
+                        Flexible(
+                          child: Text('Cash On Delivery',
+                          softWrap: true,
+                          style: TextStyle(fontSize: 15),
+                          ),
+                        )
+                      ],
+                    )
                     ),
-                    icon: Icon(
-                      Icons.local_shipping_outlined,
-                      size: 40,
-                      color: onSelectedOnline ? Colors.black : Colors.white,
-                    )),
                 ButtonSegment(
                     value: PaymentMethod.onlinePayment,
-                    label: Text(
-                      'Online Payment',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 15),
-                    ),
-                    icon: Icon(
-                      Icons.credit_card,
-                      size: 40,
-                      color: onSelectedOnline ? Colors.white : Colors.black,
-                    ))
+                    label: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.credit_card,
+                        size: 33,
+                        color: onSelectedOnline ? Colors.white : Colors.black,
+                        ),
+                        SizedBox(width: 8,),
+                        Flexible(
+                          child: Text('Online Payment',
+                          softWrap: true,
+                          style: TextStyle(fontSize: 15),
+                          ),
+                        )
+                      ],
+                    )
+                    )
               ],
               selected: {provider.selectedMethod},
               style: ButtonStyle(
@@ -82,38 +98,39 @@ class PaymentChoiceBox extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: 25,
+          height: 5,
         ),
         ElevatedButton(
             onPressed: () async {
               if (onSelectedOnline) {
-                final bool paid = await stripeProvider
-                    .makePayment(provider.totalPrice);
-                if (paid) {
-                  
-                  provider.placeOrder(
-                      context,
-                      ChangeNotifierProvider.value(
-                        value: provider,
-                        child: OrderSuccessScreen(),
-                      ));
-                      ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Payment successful....')));
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Payment failded....')));
-                }
+                // final bool paid =
+                //     await stripeProvider.makePayment(provider.totalPrice);
+                // if (paid) {
+                //   provider.placeOrder(
+                //       context,
+                //       ChangeNotifierProvider.value(
+                //         value: provider,
+                //         child: OrderSuccessScreen(),
+                //       ));
+                //   ScaffoldMessenger.of(context).showSnackBar(
+                //       SnackBar(content: Text('Payment successful....')));
+                // } else {
+                //   ScaffoldMessenger.of(context).showSnackBar(
+                //       SnackBar(content: Text('Payment failded....')));
+                // }
               } else {
                 provider.placeOrder(
                     context,
                     ChangeNotifierProvider.value(
                       value: provider,
-                      child: OrderSuccessScreen(),
+                      child: OrderSuccessScreen(
+                        totalAmount: provider.subTotal,
+                      ),
                     ));
               }
             },
             style: ElevatedButton.styleFrom(
-                fixedSize: Size(380, 60),
+                fixedSize: Size(380, 45),
                 elevation: 0,
                 backgroundColor: Colors.blue.shade600,
                 foregroundColor: Colors.white,
@@ -122,10 +139,11 @@ class PaymentChoiceBox extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10)),
                 textStyle: TextStyle(fontSize: 20)),
             child: !onSelectedOnline
-                ? Text('Place Order')
-                : Text('Make Payment \$${provider.totalPrice.toStringAsFixed(2)}',
-                textAlign: TextAlign.center,
-                ))
+                ? Text('Place Order',style: TextStyle(fontSize: 18),)
+                : Text(
+                    'Make Payment \$${provider.subTotal.toStringAsFixed(2)}',
+                    textAlign: TextAlign.center,
+                  ))
       ],
     );
   }

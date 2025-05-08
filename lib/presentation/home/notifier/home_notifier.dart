@@ -81,25 +81,20 @@ class HomeNotifier extends ChangeNotifier {
   }
 
   void addToCart(ProductModel product) async {
-    List<CartModel> cartList = [];
+    List<CartItem> cartList = [];
     if (StorageUtils.getString(LocalStr.addToCartList) != "") {
       List cart = jsonDecode(StorageUtils.getString(LocalStr.addToCartList));
       for (var data in cart) {
-        cartList.add(CartModel.fromJson(data));
+        cartList.add(CartItem.fromJson(data));
       }
     }
-    cartList.add(CartModel(
-      productId: product.productId,
-      name: product.name,
-      description: product.description,
-      brand: product.brand,
-      discount: product.discount,
-      status: product.status,
-      basePrice: product.basePrice,
-      categoryName: product.categoryName,
-      subCategoryName: product.subCategoryName,
-      featuredImage: product.featuredImage,
-    ));
+    cartList.add(CartItem(
+      id: product.productId, 
+      title: product.name, 
+      price: product.basePrice as double, 
+      quantity: 2, 
+      imageUrl: product.featuredImage, 
+      attributes: product.attributes));
     await StorageUtils.putString(LocalStr.addToCartList, jsonEncode(cartList));
     print("CartList: >>> ${StorageUtils.getString(LocalStr.addToCartList)}");
     notifyListeners();

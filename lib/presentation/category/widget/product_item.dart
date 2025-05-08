@@ -64,7 +64,7 @@ class ProductItem extends StatelessWidget {
                             Row(
                               children: [
                                 Text(
-                                  product.basePrice,
+                                  product.basePrice.toStringAsFixed(2),
                                   style: TextStyle(
                                       fontSize: 13,
                                       color: Colors.black,
@@ -74,7 +74,7 @@ class ProductItem extends StatelessWidget {
                                   width: 6,
                                 ),
                                 Text(
-                                  product.basePrice,
+                                  product.basePrice.toStringAsFixed(2),
                                   style: TextStyle(
                                       fontSize: 12,
                                       color: Colors.grey,

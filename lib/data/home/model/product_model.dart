@@ -1,3 +1,5 @@
+import 'package:retail/data/cart/model/cart_model.dart';
+
 class ProductModel {
   final String productId;
   final String name;
@@ -5,10 +7,11 @@ class ProductModel {
   final String brand;
   final String discount;
   final String status;
-  final String basePrice;
+  final double basePrice;
   final String categoryName;
   final String subCategoryName;
   final String featuredImage;
+  final List<Attribute> attributes;
 
   ProductModel({
     required this.productId,
@@ -21,6 +24,7 @@ class ProductModel {
     required this.categoryName,
     required this.subCategoryName,
     required this.featuredImage,
+    required this.attributes,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
@@ -34,7 +38,12 @@ class ProductModel {
       basePrice: json["base_price"] ?? "",
       categoryName: json["category_name"] ?? "",
       subCategoryName: json["sub_category_name"] ?? "",
-      featuredImage: json["featured_image"] ?? "http://res.cloudinary.com/dilt44xas/image/upload/v1741160668/retailGo/ln2uqf4uvnuttmk3e6zt.webp",
+      featuredImage: json["featured_image"] ??
+          "http://res.cloudinary.com/dilt44xas/image/upload/v1741160668/retailGo/ln2uqf4uvnuttmk3e6zt.webp",
+      attributes: (json['attributes'] as List<dynamic>?)
+              ?.map((a) => Attribute.fromJson(a))
+              .toList() ??
+          [],
     );
   }
 
@@ -49,5 +58,6 @@ class ProductModel {
         "category_name": categoryName,
         "sub_category_name": subCategoryName,
         "featured_image": featuredImage,
+        "attributes": attributes.map((a) => a.toJson()).toList(),
       };
 }

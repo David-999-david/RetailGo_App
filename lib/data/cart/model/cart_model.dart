@@ -1,58 +1,68 @@
-class CartModel {
-  final String productId;
-  final String name;
-  final String description;
-  final String brand;
-  final String discount;
-  final String status;
-  final String basePrice;
-  final String categoryName;
-  final String subCategoryName;
-  final String featuredImage;
-  int qty;
+class CartItem {
+  final String id;
+  final String title;
+  final double price;
+  int quantity;
+  final String imageUrl;
+  final List<Attribute> attributes;
 
-  CartModel({
-    required this.productId,
-    required this.name,
-    required this.description,
-    required this.brand,
-    required this.discount,
-    required this.status,
-    required this.basePrice,
-    required this.categoryName,
-    required this.subCategoryName,
-    required this.featuredImage,
-    this.qty = 1,
+  CartItem({
+    required this.id,
+    required this.title,
+    required this.price,
+    required this.quantity,
+    required this.imageUrl,
+    required this.attributes,
   });
 
-  factory CartModel.fromJson(Map<String, dynamic> json) {
-    return CartModel(
-      productId: json["product_id"] ?? "",
-      name: json["name"] ?? "",
-      description: json["description"] ?? "",
-      brand: json["brand"] ?? "",
-      discount: json["discount"] ?? "",
-      status: json["status"] ?? "",
-      basePrice: json["base_price"] ?? "",
-      categoryName: json["category_name"] ?? "",
-      subCategoryName: json["sub_category_name"] ?? "",
-      featuredImage: json["featured_image"] ??
-          "http://res.cloudinary.com/dilt44xas/image/upload/v1741160668/retailGo/ln2uqf4uvnuttmk3e6zt.webp",
-      qty: json['qty'] ?? 1,
-    );
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'price': price,
+      'quantity': quantity,
+      'imageUrl': imageUrl,
+      'attributes': attributes.map((attr) => attr.toJson()).toList(),
+    };
   }
 
+  factory CartItem.fromJson(Map<String, dynamic> json) {
+    return CartItem(
+      id: json['id'],
+      title: json['title'],
+      price: json['price'],
+      quantity: json['quantity'],
+      imageUrl: json['imageUrl'],
+      attributes: (json['attributes'] as List<dynamic>?)
+              ?.map((attr) => Attribute.fromJson(attr))
+              .toList() ??
+          [],
+    );
+  }
+}
+
+class Attribute {
+  final int attributeId;
+  final String name;
+  final String value;
+
+  Attribute({
+    required this.attributeId,
+    required this.name,
+    required this.value,
+  });
+
+  factory Attribute.fromJson(Map<String, dynamic> json) => Attribute(
+        attributeId: json['attribute_id'] is int
+            ? json['attribute_id']
+            : int.tryParse(json['attribute_id'].toString()) ?? 0,
+        name: json['name'].toString(),
+        value: json['value'].toString(),
+      );
+
   Map<String, dynamic> toJson() => {
-        "product_id": productId,
-        "name": name,
-        "description": description,
-        "brand": brand,
-        "discount": discount,
-        "status": status,
-        "base_price": basePrice,
-        "category_name": categoryName,
-        "sub_category_name": subCategoryName,
-        "featured_image": featuredImage,
-        "qty": qty,
+        'attribute_id': attributeId,
+        'name': name,
+        'value': value,
       };
 }

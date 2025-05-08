@@ -18,7 +18,7 @@ class SavedAddress extends StatelessWidget {
             return LocationItem(address: provider.addressList[index],);
           }, 
           separatorBuilder: (context, index) {
-            return SizedBox(height: 20,);
+            return SizedBox(height: 10,);
           }, 
           itemCount: provider.addressList.length),
       ),
