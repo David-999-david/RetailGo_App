@@ -45,13 +45,15 @@ class HomeNotifier extends ChangeNotifier {
   
 
   void getAllProduct() async {
-    try {
-      productList = await HomeUsecase().getAllProducts();
-    } catch (e) {
-      debugPrint("Error: $e");
-    }
-    notifyListeners();
+  try {
+    productList = await HomeUsecase().getAllProducts();
+    debugPrint('➤ Loaded ${productList.length} products');
+  } catch (e) {
+    debugPrint('Error loading products: $e');
   }
+  notifyListeners();
+}
+
 
   void getFilterProduct(
       BuildContext context, ProductModel selectedProduct) async {
